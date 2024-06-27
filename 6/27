@@ -1,0 +1,49 @@
+//1부터 100까지 3의배수 가로로 출력
+namespace ConsoleApp9
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                if(i % 3 == 0)
+                {
+                    Console.Write("{0} ",i);
+                }
+            }
+
+        }
+    }
+}
+
+---------------------------------------------------
+//1부터 100까지 3의배수와 7의배수 가로로 출력
+using System.ComponentModel.Design;
+
+namespace ConsoleApp9
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                if(i % 3 == 0)
+                {
+                    Console.Write("{0} ",i);
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+            for (int i = 1; i <= 100; i++)
+            {
+                if (i % 7 == 0)
+                {
+                    Console.Write("{0} ", i);
+                }
+            }
+        }
+    }
+}
