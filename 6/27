@@ -1,4 +1,5 @@
 //1부터 100까지 3의배수 가로로 출력
+//////////////////////////////////////////
 namespace ConsoleApp9
 {
     internal class Program
@@ -19,6 +20,7 @@ namespace ConsoleApp9
 
 ---------------------------------------------------
 //1부터 100까지 3의배수와 7의배수 가로로 출력
+//////////////////////////////////////////////
 using System.ComponentModel.Design;
 
 namespace ConsoleApp9
@@ -47,3 +49,405 @@ namespace ConsoleApp9
         }
     }
 }
+
+---------------------------------------------------
+Q) for문 100 ~ 1까지 꺼꾸로 출력해보세요!!
+
+     - 짝수만 출력
+
+
+
+100 98 96 94 ... 2
+
+Q) while 문 100 ~ 1 까지 꺼꾸로 출력
+
+     - 홀수만 출력
+////////////////////////////////////////////
+namespace ExamApp01
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 100; i >= 1; i-=2)
+            { 
+                if (i % 2 == 0)
+            Console.Write($"{i} ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+            
+            int j = 100;
+
+            while (j > 0)
+            {
+                if (j % 2 == 1)
+                    Console.Write($"{j} ");
+                j--;
+            //    j -= 2;
+            }
+        }
+    }
+}
+----------------------------------------------------------------
+﻿성적을 입력하면 학점을 출력합니다. 
+/////////////////////////////////////////////////////////////
+namespace 중첩if_성적입력
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int grade = Int32.Parse(Console.ReadLine());
+            if ((grade >= 90) & (grade <= 100))
+            {
+                Console.WriteLine($"점수 : {grade}");
+                Console.WriteLine("A 학점입니다.");
+            }
+            else if ((grade >= 80) & (grade <= 89))
+            {
+                Console.WriteLine($"점수 : {grade}");
+                Console.WriteLine("B 학점입니다.");
+            }
+            else if ((grade >= 70) & (grade <= 79))
+            {
+                Console.WriteLine($"점수 : {grade}");
+                Console.WriteLine("C 학점입니다.");
+            }
+            else if ((grade >= 60) & (grade <= 69))
+            {
+                Console.WriteLine($"점수 : {grade}");
+                Console.WriteLine("D 학점입니다.");
+            }
+            else
+            {
+                Console.WriteLine($"점수 : {grade}");
+                Console.WriteLine("F 학점입니다.");
+            }
+        }
+    }
+}
+---------------------------------------------------------------
+namespace SwitchApp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("입력을 해주세요.(1.사과 2.배 3.오렌지)... : ");
+            int number = Int32.Parse(Console.ReadLine());
+
+            switch (number)
+            {
+                case 1:
+                    Console.WriteLine("사과 입니다.");
+                    break;
+                case 2:
+                    Console.WriteLine("베 입니다.");
+                    break;
+                case 3:
+                    Console.WriteLine("오렌지 입니다.");
+                    break;
+                default:
+                    Console.WriteLine("메뉴가 없습니다.");
+                    break;
+            }
+        }
+    }
+}
+------------------------------------------------------------------------------------
+[1단계]
+
+﻿첫 번째 숫자를 입력하세요: 10 
+
+
+
+연산자 (+, -, *, /)를 입력하세요: + 
+
+
+
+두 번째 숫자를 입력하세요: 5 
+
+결과는 15입니다. 
+
+
+//////////////////////////////////////////////////////////////////////////////////
+namespace ConsoleApp10
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("첫 번째 숫자를 입력하세요: ");
+            int value1 = Int32.Parse(Console.ReadLine());
+
+            Console.Write("연산자 (+, -, *, /)를 입력하세요:");
+            string op = Console.ReadLine();
+
+            Console.Write("두 번째 숫자를 입력하세요: ");
+            int value2 = Int32.Parse(Console.ReadLine());
+
+            switch (op)
+            {
+                case "+":
+                    Console.WriteLine(value1 + value2);
+                    break;
+                case "-":
+                    Console.WriteLine(value1 - value2);
+                    break;
+                case "*":
+                    Console.WriteLine(value1 * value2);
+                    break;
+                case "/":
+                    Console.WriteLine((double)value1 / value2);
+                    break;
+            }
+
+        }
+    }
+}
+--------------------------------------------------------------------
+namespace ConsoleApp10
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("첫 번째 숫자를 입력하세요: ");
+            int value1 = Int32.Parse(Console.ReadLine());
+
+            Console.Write("연산자 (+, -, *, /)를 입력하ㅔ요: ");
+            string op = Console.ReadLine();
+
+            Console.Write("두 번째 숫자를 입력하세요: ");
+            int value2 = Int32.Parse(Console.ReadLine());
+
+            //switch (op)
+            //{
+            //    case "+":
+            //        Console.WriteLine(value1 + value2);
+            //        break;
+            //    case "-":
+            //        Console.WriteLine(value1 - value2);
+            //        break;
+            //    case "*":
+            //        Console.WriteLine(value1 * value2);
+            //        break;
+            //    case "/":
+            //        Console.WriteLine((double)value1 / value2);
+            //        break;
+            //}
+            if (op == "+")
+            {
+                Console.WriteLine(value1 + value2);
+            }
+            else if (op == "-") 
+            { 
+                Console.WriteLine(value1 - value2);
+            }
+            else if (op == "*")
+            {
+                Console.WriteLine(value1 * value2);
+            }
+            else if (op == "/")
+            {
+                Console.WriteLine((double)value1 / value2);
+            }
+        }
+
+        
+    }
+}
+--------------------------------------------------------------------
+namespace ConsoleApp11
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int i = 0;
+            while (true)
+            {
+                Console.WriteLine("다시 시작하겠습니까?");
+                string word = Console.ReadLine();
+                if (word.ToLower() == "n")
+                {
+                    Console.WriteLine("종료합니다");
+                    break;
+                }
+                else if (word.ToLower() == "y")
+                    continue;
+                else
+                    Console.WriteLine("단어를 새로 입력해 주세요");
+            }
+
+        }
+    }
+}
+--------------------------------------------------------------------
+namespace ConsoleApp11
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = 50;
+            int result;
+            result = n++;
+
+            Console.WriteLine(result);
+
+        }
+    }
+}
+-----------------------------------------------------------------------
+구구단
+///////////////////////////////////////////////////////////////////////
+namespace ConsoleApp11
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 2; i < 10; i++)
+            {
+                for(int j = 1; j < 10; j++)
+                {
+                    Console.WriteLine($"{i} * {j} = {i*j}");
+                }
+            }
+
+        }
+    }
+}
+-------------------------------------------------------
+구구단 거꾸로
+//////////////////////////////////////////////////////
+namespace ConsoleApp11
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+           for(int i = 9; i> 1; i--)
+            {
+                for (int j = 9; j > 0; j--)
+                {
+                    Console.WriteLine($"{i} * {j} = {i * j}");
+                }
+            }
+
+        }
+    }
+}
+------------------------------------------------------------
+1단계 
+
+--------
+
+N? 5
+
+*
+
+**
+
+***
+
+****
+
+*****
+///////////////////////////////////////////////////////////////
+namespace ConsoleApp11
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+            }
+
+        }
+    }
+}
+------------------------------------------------------
+2단계
+
+N? 5
+
+*****
+
+****
+
+***
+
+**
+
+*
+////////////////////////////////////////////////////
+namespace ConsoleApp11
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            for (int i = 5; i > 0; i--)
+            {
+                for (int j = 1; j <= i; j++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+            }
+
+        }
+    }
+}
+---------------------------------------------------------
+3
+namespace ConsoleApp11
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+;
+
+            for (int i = 5; i > 0; i--) // 5 4 3 2 1 
+            {
+                for (int j = 0; j < 5; j++) // 0 1 2 3 4 
+                {
+                    if (i - 1 > j)
+                    {
+                        Console.Write(" ");
+                    }
+                    else
+                    {
+                        Console.Write("*");
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
