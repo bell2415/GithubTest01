@@ -122,9 +122,83 @@ namespace Exam02
     }
 }
 ---------------------------------------------------------
+using System;
 
+namespace Exam02
+{
+    internal class Program
+    {
+        static void MyPrint()
+        {
+            Console.WriteLine("안녕");
+        }
+        static int Plus(int a, int b)
+        { 
+            return a + b;
+        }//end of Plus
 
+        static int Minus(int n1, int n2)
+        {
+            return n1 - n2;
+        }//end of Minus
+        static double Divide(int a, int b)
+        {
+            return (double)a / b;
+        }//end of Divide
+        static void Main(string[] args)
+        {
+            MyPrint();
+            int result = Plus(100, 200);
+            Console.WriteLine(result);
 
+        }//end of Main
+    }//end of program
+}
+---------------------------------------------------------
+namespace Exam03
+{
+    class Calculator
+    {
+        public int Plus(int a, int b)
+        {
+        return a + b;
+        }
+        public double Divide(int a, int b)
+        {
+            return a / (double)b;
+        }
+    }//end of Calculator
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Calculator calculator = new Calculator();
+            Console.WriteLine(calculator.Plus(100, 200));
+            Console.WriteLine(calculator.Plus(200, 100));
+        }
+    }
+}  
+---------------------------------------------------------
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static int NumberAdd()
+        {
+            int result = 0;
+            for (int i = 1; i <= 100; i++)
+            {
+                result += i;
+            }
+            return result;
+        }
+        static void Main()
+        {
+            Console.WriteLine(NumberAdd());
+        }
+    }
+}
+----------------------------------------------------------
 
 
 
