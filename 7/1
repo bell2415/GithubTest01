@@ -199,10 +199,264 @@ namespace ConsoleApp15
     }
 }
 ----------------------------------------------------------
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static int NumberAdd(int start, int end)
+        {
+            int sum = 0;
+            for (int i = start; i <= end; i++)
+            {
+                sum += i;
+
+                
+            }
+            return sum;
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine(NumberAdd(77, 700));
+        }
+        
+    }
+}
+--------------------------------------------------------------
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static int GetMax(int[] arr)
+        {
+            int max = int.MinValue; //정수 중 가장 작은 값을 max 변수에 대입함.
+
+            //코딩
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] > max)
+                    max = arr[i];
+            }
+            return max;
+        }
+
+        static void Main(string[] args)
+        {
+            int[] arr = { -7, 5, 60, -33, 42 };
+            
+            Console.WriteLine($"최대값은 : {GetMax(arr)}");
+        }
+        
+    }
+}
+-------------------------------------------------------------
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static int GetMax(int[] arr)
+        {
+            int max = int.MinValue; //정수 중 가장 작은 값을 max 변수에 대입함.
+
+            //코딩
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] > max)
+                    max = arr[i];
+            }
+            return max;
+        }
+        static int GetMin(int[] arr)
+        {
+            int min = int.MaxValue; //정수 중 가장 작은 값을 max 변수에 대입함.
+
+            //코딩
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < min)
+                    min = arr[i];
+            }
+            return min;
+        }
+        static void Main(string[] args)
+        {
+            int[] arr = { -7, 5, 60, -33, 42 };
+            
+            Console.WriteLine($"최대값은 : {GetMax(arr)}");
+            Console.WriteLine($"최소값은 : {GetMin(arr)}");
+        }
+        
+    }
+}
+--------------------------------------------------------------------------------------
+namespace ScoreApp02
+{
+    internal class Program
+    {
+        static int TotalScore(int a, int b, int c)
+        {
+            return a + b + c;
+
+        }
+
+        //국어, 영어, 수학 (90, 90, 91)
+        static void Main(string[] args)
+        {
+            int totalScore = TotalScore(90, 90, 91);
+            Console.WriteLine(totalScore);
+            Console.WriteLine($"평균값 : {totalScore / 3.0:F2}");
+        }
+        
+    }
+}
+------------------------------------------------------------------------------------
+using System.Reflection.Metadata.Ecma335;
+
+namespace ScoreApp02
+{
+    internal class Program
+    {
+        static int[] inputThreeScore()
+        {
+            int[] scores = new int[3];   //세개의 점수를 받아온다.
+            Console.WriteLine("점수를 입력해 주세요 : ");
+            for (int i = 0; i < 3; i++)
+            {
+                scores[i] = Int32.Parse(Console.ReadLine());
+            }
+            return scores;
+        }
+        static int GetTotalScore(int[] arr)
+        {
+            int totalScore = 0;
+            foreach(int i in arr)
+            {
+                totalScore += i;
+            }
+            return totalScore;
+        }
+        static double GetAvg(int totalScore)
+        {
+            return totalScore / 3.0;
+        }
+        static void Main(string[] args)
+        {
+            int[] scores = inputThreeScore();   //세개의 점수를 받아온다.
+            int totalScore = GetTotalScore(scores);
+            double avg = GetAvg(totalScore);
+            Console.WriteLine($"총점 : {totalScore}");
+            Console.WriteLine($"평균 : {avg:F2}");
+        }
 
 
+        
+    }
+}
+-------------------------------------------------------------------------------
+using System.Reflection.Metadata.Ecma335;
+
+namespace ScoreApp02
+{
+    internal class Program
+    {
+        static int[] inputThreeScore()
+        {
+            int[] scores = new int[3];   //세개의 점수를 받아온다.
+            Console.WriteLine("점수를 입력해 주세요 : ");
+            for (int i = 0; i < 3; i++)
+            {
+                scores[i] = Int32.Parse(Console.ReadLine());
+            }
+            return scores;
+        }
+        static int GetTotalScore(int[] arr)
+        {
+            int totalScore = 0;
+            foreach(int i in arr)
+            {
+                totalScore += i;
+            }
+            return totalScore;
+        }
+        static double GetAvg(int totalScore)
+        {
+            return totalScore / 3.0;
+        }
+        static void Main(string[] args)
+        {
+            int[] scores = inputThreeScore();   //세개의 점수를 받아온다.
+            int totalScore = GetTotalScore(scores);
+            double avg = GetAvg(totalScore);
 
 
+            Console.WriteLine($"총점 : {totalScore}");
+            Console.WriteLine($"평균 : {avg:F2}");
+        }
 
+
+        
+    }
+}
+--------------------------------------------------------------------------
+namespace _00P01
+{
+    class Book
+    {
+        string Title;
+        decimal ISBN13;
+        string Contents;
+        string Author;
+        int PageCount;
+    }
+    class Student
+    {
+        public int ID;
+        public string Name;
+
+        public string Run()
+        {
+            return "학번 : " + this.ID +" " + this.Name + " 달리다.";
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Book guliver = new Book();
+
+            Student hong = new Student();
+            //객체 초기화 <-- 값 넣기
+            hong.ID = 1;
+            hong.Name = "홍길동";
+            
+            Console.WriteLine(hong.ID);
+            Console.WriteLine(hong.Name);
+            Console.WriteLine(hong.Run());
+        }
+    }
+}
+--------------------------------------------------------------------
+namespace ConsoleApp16
+{
+    class Mathmatics
+    {
+        //멤버 변수
+        //생성자
+        //멘버 메소드
+        public int f(int x)
+        {
+            return x * x;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Mathmatics m = new Mathmatics();
+            int result = m.f(5);
+            Console.WriteLine(result);
+        }
+    }
+}
+-----------------------------------------------------------
 
 
