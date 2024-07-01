@@ -458,5 +458,77 @@ namespace ConsoleApp16
     }
 }
 -----------------------------------------------------------
+namespace ConsoleApp17
+{
+    class Person
+    {
+        //멤버변수
+        string name;
+        //생성자
+        //default 생성자
+        public Person()
+        {
+            this.name = "홍길동";
+            Console.WriteLine("생성자 호출");
+        }
+        //멤버메소드
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("person 객체 생성되기 전. ");
+            Person person = new Person();
+            Console.WriteLine("person 객체 생성된 후.");
+        }
+    }
+}
+---------------------------------------------------------
+namespace ConsoleApp17
+{
+    class Person
+    {
+        public string name;
 
+        public Person()
+        {
+            name = "이름없음";
+            Console.WriteLine("생성자 호출");
+        }
+        public Person(string _name)
+        {
+            this.name = _name;
+            Console.WriteLine($"인자가 1개 있는 생성자 호출 : {this.name}");
+        }
+        //멤버메소드
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person = new Person("홍길동");
+        }
+    }
+}
+----------------------------------------------------------------------------------------
+namespace SwapByValue
+{
+    internal class Program
+    {
+        static void Swap(ref int a, ref int b)
+        {
+            int temp = b;
+            b = a;
+            a = temp;
+            Console.WriteLine($"{a} {b}");
+        }
+        static void Main(string[] args)
+        {
+            int x = 3, y = 4;
 
+            Console.WriteLine($"{x} {y}");
+            Swap(ref x, ref y);
+            Console.WriteLine($"{x} {y}");
+        }
+    }
+}
