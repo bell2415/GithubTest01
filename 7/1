@@ -1,0 +1,134 @@
+namespace VariableChange
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = Int32.Parse(Console.ReadLine());
+            int b = Int32.Parse(Console.ReadLine());
+
+            Console.WriteLine($"{a} {b}");
+
+            //변수교환
+            int temp = a;
+            a = b;
+            b = temp;
+
+            Console.WriteLine($"{a} {b}");
+        }
+    }
+}
+---------------------------------------------------------
+namespace VariableChange
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            double PI = 3.14159;
+            char c = 'A';
+            char d = (char)65;
+
+            Console.WriteLine($"{PI} {c} {d}");
+
+            //홀수 짝수 구분
+            int e = 7;
+            if(e % 2 == 0)
+            {
+                Console.WriteLine("짝수");
+            }
+            else if(e % 2 ==1)
+            {
+                Console.WriteLine("홀수");
+            }
+            //
+            int s1 = 1, s2 = 2, s3 = 3;
+            int value = s2;
+            switch (value)
+            {
+                case 1:
+                    Console.WriteLine(value);
+                    break;
+                case 2:
+                    Console.WriteLine(value);
+                    break;
+                 default:
+                    Console.WriteLine(value);
+                    break;
+            }
+        }
+    }
+}namespace VariableChange
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            double PI = 3.14159;
+            char c = 'A';
+            char d = (char)65;
+
+            Console.WriteLine($"{PI} {c} {d}");
+
+            //홀수 짝수 구분
+            int e = 7;
+            if(e % 2 == 0)
+            {
+                Console.WriteLine("짝수");
+            }
+            else if(e % 2 ==1)
+            {
+                Console.WriteLine("홀수");
+            }
+            //
+            int s1 = 1, s2 = 2, s3 = 3;
+            int value = s2;
+            switch (value)
+            {
+                case 1:
+                    Console.WriteLine(value);
+                    break;
+                case 2:
+                    Console.WriteLine(value);
+                    break;
+                 default:
+                    Console.WriteLine(value);
+                    break;
+            }
+        }
+    }
+}
+-----------------------------------------------------------
+namespace Exam02
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //while문으로 77 ~ 700까지 출력을 해보세요.
+            // -----------------------------------------
+            // 77 78 78 .... 7000
+
+            int i = 77;
+
+            while(i <= 700)
+            {
+                Console.Write($"{i} ");
+                i++;
+            }
+            Console.WriteLine();
+
+        }
+    }
+}
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
