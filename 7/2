@@ -1,0 +1,42 @@
+namespace DoWhile
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //int i = 0;
+
+            //while (i < 5)
+            //{
+            //    Console.WriteLine("Hello World");
+            //    i++;
+            //}
+
+            int k = 0;
+            do
+            {
+                Console.WriteLine("Hello World");
+                k++;
+            } while (k<5);
+        }
+    }
+}
+-----------------------------------------------------------------
+namespace DoWhile
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int i = 1;
+            do
+            {
+                int result = 3 * i;
+                Console.WriteLine($"3 * {i} = {result}");
+                i++;
+            }
+            while (i < 10);
+        }
+    }
+}
+-----------------------------------------------------------------
