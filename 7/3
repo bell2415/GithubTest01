@@ -137,3 +137,467 @@ namespace MethodeApp03
         }
     }
 }
+-----------------------------------------------------------------------------------
+namespace MethodeApp04
+{
+    class Student
+    { 
+        public void EnrollCourse()
+        {
+            Console.WriteLine("수강신청하다.");
+        }
+        public void DropCourse()
+        {
+            Console.WriteLine("수강신청 취소하다.");
+        }
+        public void ViewGrades()
+        {
+            Console.WriteLine("성적확인하기");
+        }
+        //EnrollCourse() - 수강신청하다
+        //DropCourse() - 수강신청 취소하다
+        //ViewGrades() - 성적확인하기
+    }
+    class Instructor
+    {
+        public void AssignGrade()
+        {
+            Console.WriteLine("성적인증하기");
+        }
+        public void CreateCourse()
+        {
+            Console.WriteLine("과정 만들기");
+        }
+        public void UpdateCourse()
+        {
+            Console.WriteLine("과정 수정하기");
+        }
+        //AssignGrade() - 성적인증하기
+        //CreateCourse() - 과정 만들기
+        //UpdateCourse() - 과정 수정하기
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Student student = new Student();
+            Instructor instructor = new Instructor();
+            student.EnrollCourse();
+            student.DropCourse();
+            student.ViewGrades();
+            instructor.AssignGrade();
+            instructor.CreateCourse();
+            instructor.UpdateCourse();
+            
+        }
+    }
+}
+----------------------------------------------------------------
+namespace OOPApp01
+{
+    class Computer
+    {
+        public void Run()
+        {
+            Console.WriteLine("컴퓨터를 구동합니다.");
+        }
+    }
+
+    class NoteBook : Computer
+    {
+        
+    }
+
+    class Car
+    {
+        public string brand;
+
+        public Car()
+        {
+            brand = "현대";
+            Console.WriteLine("부모 클래스 생성자가 호출 되었습니다.");
+        }
+        public void Run()
+        {
+            Console.WriteLine("차가 달린다.");
+        }
+    }
+
+    class SuperCar : Car
+    {
+        public SuperCar() 
+        {
+            Console.WriteLine("자식 클래스 생성자가 호출 되었습니다");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Computer computer = new Computer();
+            computer.Run();
+            NoteBook notebook = new NoteBook();
+            notebook.Run();
+        }
+    }
+}
+--------------------------------------------------------------------------
+using System.Security.Cryptography.X509Certificates;
+
+namespace OOPApp03
+{
+    class Shape
+    {
+        public string name;
+
+        public Shape()
+        {
+            this.name = "도형";
+            Console.WriteLine("부모 클래스 생성자!!!!");
+        }
+        public virtual void Draw()
+        {
+            Console.WriteLine("도형을 그리다.");
+        }
+        //메소드
+    class Rectangle : Shape
+        {
+            public Rectangle()
+            {
+                this.name = "사각형";
+                Console.WriteLine("자식 클래스 생성자!!!!");
+            }
+            public override void Draw()
+            {
+                Console.WriteLine("사각형을 그리다.");
+            }
+        }
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                Rectangle rect = new Rectangle();
+                Console.WriteLine(rect.name);
+                rect.Draw();
+            }
+        }
+    }
+}
+-------------------------------------------------------------------
+namespace OOPApp04
+{
+    abstract class Shape
+    {
+        public virtual void Draw() 
+        { 
+            Console.WriteLine("도형을 그리다.");
+        }
+    }
+    class Triangle : Shape
+    {
+        //Draw() Overriding 하세요. 삼각형을 그리다.
+        public override void Draw() 
+        { 
+            Console.WriteLine("삼각형을 그리다.");
+        }
+    }
+    class Rectangle : Shape
+    {
+        //Draw() Overriding 하세요. 사각형을 그리다.
+        public override void Draw()
+        {
+            Console.WriteLine("사각형을 그리다.");
+        }
+    }
+    class Circle : Shape
+    {
+        //Draw() Overriding 하세요. 원을 그리다.
+        public override void Draw()
+        {
+            Console.WriteLine("원을 그리다.");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //Shape shape = new Shape();
+            Triangle triangle = new Triangle();
+            Rectangle rectangle = new Rectangle();
+            Circle circle = new Circle();
+
+            triangle.Draw();
+            rectangle.Draw();
+            circle.Draw();
+        }
+    }
+}
+------------------------------------------------------------
+namespace OOPApp05
+{
+    abstract class Car
+    {
+        public abstract void Run(); //추상 메소드 abstract Method
+
+    }
+    class Bus : Car
+    {
+        public override void Run() 
+        {
+            Console.WriteLine("버스가 달린다.");
+        }
+    }
+    class Taxi : Car
+    {
+        public override void Run()
+        {
+            Console.WriteLine("택시가 달린다.");
+        }
+    }
+    class Truck : Car
+    {
+        public override void Run()
+        {
+            Console.WriteLine("트럭이 달린다.");
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Car car = new Car(); //Car 클래스를 abstract 클래스로 만들었기 때문.
+            Bus bus = new Bus();
+            Taxi taxi = new Taxi();
+            Truck truck = new Truck();
+            bus.Run();
+            taxi.Run();
+            truck.Run();
+
+            Car car1 = new Bus();
+            Car car2 = new Taxi();
+            Car car3 = new Truck();
+            car1.Run();
+            car2.Run();
+            car3.Run();
+            /////////////////////////////////////
+            Car[] cars = new Car[3];
+            cars[0] = new Bus();
+            cars[1] = new Taxi();
+            cars[2] = new Truck();
+
+            for (int i = 0; i < 3; i++)
+            {
+                cars[i].Run();
+            }
+
+            //Car car4 = new Bus();
+            //car4.Run();
+            //car4 = new Taxi();
+            //car4.Run();
+            //car4 = new Truck();
+            //car4.Run();
+
+        }
+    }
+}
+------------------------------------------------------------------------------------------
+using System.Diagnostics;
+
+namespace OOPApp06
+{
+    abstract class Mammal
+    {
+        public abstract void Eat();
+    }
+    class Lion : Mammal
+    {
+        public override void Eat()
+        {
+            Console.WriteLine("사자가 먹습니다.");
+        }
+    }
+    class Tiger : Mammal
+    {
+        public override void Eat()
+        {
+            Console.WriteLine("호랑이가 먹습니다.");
+        }
+    }
+    class Dog : Mammal
+    {
+        public override void Eat()
+        {
+            Console.WriteLine("개가 먹습니다.");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Mammal[] mammals = new Mammal[3];
+            mammals[0] = new Lion();
+            mammals[1] = new Tiger();
+            mammals[2] = new Dog();
+
+            for (int i = 0; i < mammals.Length; i++)
+            {
+                mammals[i].Eat();
+            }
+
+        }
+    }
+}
+---------------------------------------------------------------
+namespace OOPApp06
+{
+    class Shape
+    {
+        //멤버변수
+        private string color;
+
+        public string Color { get; set; }  //Property
+
+        public void SetColor(string color)
+        {
+            this.color = color;
+        }
+        public string GetColor()
+        { 
+            return this.color; 
+        }
+        public virtual void Draw()
+        {
+            Console.WriteLine("도형을 그리다.");
+        }
+    }
+    class Circle : Shape
+    { 
+        public override void Draw()
+        {
+            Console.WriteLine("원을 그리다");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Circle circle = new Circle();
+            circle.SetColor("파란색");
+            Console.WriteLine(circle.GetColor());
+            circle.Color = "노란색";
+            Console.WriteLine(circle.Color);
+        }
+    }
+}
+-------------------------------------------------------
+using System.Globalization;
+
+namespace PropertyApp02
+{
+    class Person
+    {
+        //멤버변수
+        private string name;
+        private int age;
+        public StringInfo Color { get; set; }
+        //Property
+        public string Name
+        {
+            set
+            {
+                name = value;
+            }
+            get
+            {
+                return name;
+            }
+        }
+        public int Age
+        {
+            get 
+            { 
+                return age; 
+            }
+            set
+            {
+                if (value >= 0)
+                {
+                    age = value;
+                }
+                else
+                {
+                    Console.WriteLine("나이는 0살보다 어릴 수 없습니다.");
+                }
+
+            }
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Person paul = new Person();
+            paul.Name = "파울이";
+            paul.Age = 23;
+
+            Console.WriteLine($"{paul.Name} 나이:{paul.Age}");
+        }
+    }
+}
+------------------------------------------------------------------------------
+namespace P133App
+{
+    class Circle
+    {
+        private double pi = 3.14;
+        public double Pi
+        {
+            get
+            {
+                return pi;
+            }
+            set
+            {
+                pi = value;
+            }
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Circle o = new Circle();
+                o.Pi = 3.14159;       //프로퍼티 쓰기
+            double piValue = o.Pi;    //프로퍼티 읽기
+        }
+    }
+}
+-----------------------------------------------------------------------------
+namespace ConsoleApp20
+{
+    class Cat
+    {
+        public string Name { get; set; }
+        public int Age {  get; set; }
+        public string Color { get; set; }
+
+        public string ShowCatInfo()
+        {
+            return $"{this.Name}의 나이는 {this.Age}살이고 {this.Color} 입니다.";
+        }   
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Cat cat = new Cat();
+            cat.Name = "야옹이";
+            cat.Age = 7;
+            cat.Color = "하얀색";
+
+            Console.WriteLine(cat.ShowCatInfo());
+        }
+    }
+}
+------------------------------------------------------------------------------------
