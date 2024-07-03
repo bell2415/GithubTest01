@@ -1,1 +1,139 @@
+namespace MethodApp01
+{
+    class MyClass
+    {
+        public void Print()
+        {
+            Console.WriteLine("MyClass Hello~!");
+        }
+        public void Print(string s)
+        {
+            Console.WriteLine(s);
+        }
+    public void Print(string s, double speed)
+    {
+            Console.WriteLine($"{s} , speed : {speed}");
+    }
+        public void Print(double speed, string s)
+        {
+            Console.WriteLine($"speed : {speed}, {s}");
+        }
 
+
+    }//end of MyClass
+    internal class Program
+    {
+        static void Print()
+        {
+            Console.WriteLine("Hello~!");
+        }
+
+        public static void Print(string s)
+        { 
+            Console.WriteLine(s);
+        }
+        static void Main(string[] args)
+        {
+            Print();
+            Print("안녕하세요");
+
+            MyClass mc = new MyClass();
+            mc.Print();
+            mc.Print("반갑습니다.");
+            mc.Print("수고하세요", 100);
+        }
+    }
+}
+-------------------------------------------------
+namespace MethodApp02
+{
+    class Bank
+    {
+        //1.멤버 변수
+        private int money;
+        //2.생성자
+        public Bank()
+        { 
+            this.money = 10000;
+        }
+        //3.멤버 메소드
+        //예금하다
+        public void Deposit()
+        {
+            Console.WriteLine($"{money} 금액을 예금하다.");
+        }
+        public void Deposit(int money)
+        {
+            Console.WriteLine($"{money} 금액을 예금하다.");
+        }
+        //인출하다
+        public void WithDraw()
+        {
+            Console.WriteLine($"{money} 금액을 인출하다.");
+        }
+        //이체하다
+        public void Transfer()
+        {
+            Console.WriteLine($"{money} 금액을 이체하다.");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //예금하다, 인출하다, 이체하다
+            //객체
+            Bank kb = new Bank();
+            kb.Deposit();
+            kb.Deposit(1000000);
+            kb.WithDraw();
+            kb.Transfer();
+        }
+    }
+}
+--------------------------------------------------------------
+namespace MethodeApp03
+{
+    class Sensor
+    {
+        //멤버변수
+        //생성자
+        //멤버메소드
+        //데이터 읽어오기
+        public void ReadData()
+        {
+            Console.WriteLine("데이터를 읽다.");
+        }
+        public void ReadData(byte[] data)
+        {
+            Console.WriteLine($"{data[0]}{data[1]}{data[2]} 데이터를 읽다.");
+        }
+        //설정값 조정하기
+        public void Calibrate()
+        {
+            Console.WriteLine("설정값을 조정하다.");
+        }
+        //경고메세지 보내기
+        public void SendAlert()
+        {
+            Console.WriteLine("경고보내기");
+        }
+        public void SendAlert(string message)
+        { 
+            Console.WriteLine($"{message} 경고보내기");    
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Sensor sensor = new Sensor();
+            sensor.ReadData();
+            byte[] arr = { 0x001, 0x002, 0x003 };
+            sensor.ReadData(arr);
+            sensor.Calibrate();
+            sensor.SendAlert();
+            sensor.SendAlert("온도초과");
+        }
+    }
+}
