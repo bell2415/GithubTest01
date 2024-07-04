@@ -1,1 +1,392 @@
+amespace OOPApp06
+{
+    class Shape
+    {
+        public int vertex; //멤버변수
+        
+        //Default Constructor
+        public Shape()
+        {
+            vertex = 0;
+        }
+
+        public void ShowVertex()
+        {
+            Console.WriteLine(vertex);
+        }
+        public void ShowVertex(string msg, string position, int repeat)
+        {
+            Console.WriteLine(msg + " " + vertex + "현재지역은" + position + "반복횟수는" + repeat);
+        }
+
+        public virtual void ShowName()
+        {
+            Console.WriteLine("도형입니다.");
+        }
+    }
+    class Triangle : Shape
+    {
+    public Triangle()
+    {
+        vertex = 3;
+    }
+        public override void ShowName()
+        {
+            Console.WriteLine("삼각형입니다.");
+        }
+    }
+    class Circle : Shape
+    {
+        public override void ShowName()
+        {
+            Console.WriteLine("삼각형입니다.");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Triangle triangle = new Triangle();
+            triangle.ShowVertex();
+            triangle.ShowVertex("꼭지점의 개수는 :", "안동", 3);
+
+            triangle.ShowName();
+            Circle circle = new Circle();
+            circle.ShowName();
+        }
+    }
+}
+--------------------------------------------------------------------
+namespace ConsoleApp21
+{
+    class Car
+    {
+        public int maxspeed;
+
+        public Car()
+        {
+            maxspeed = 200;
+        }
+
+        public void ShowMaxspeed()
+        {
+            Console.WriteLine(maxspeed);
+        }
+        public void ShowMaxspeed(int speed)
+        {
+            Console.WriteLine("최대 속도는 : " + speed);
+        }
+        public virtual void ShowName()
+        { 
+            Console.WriteLine("차입니다.");
+        }
+    }
+    class Bus : Car
+    {
+        public Bus()
+        { 
+            maxspeed = 150;
+        }
+        public override void ShowName()
+        {
+            Console.WriteLine("버스입니다.");
+        }
+
+    }
+    class Taxi : Car 
+    {
+        public Taxi()
+        {
+            maxspeed = 300;
+        }
+        public override void ShowName()
+        {
+            Console.WriteLine("택시입니다.");
+        }
+    }
+    class Truck : Car
+    {
+        public override void ShowName()
+        {
+            Console.WriteLine("트럭입니다.");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Taxi taxi = new Taxi();
+            Bus bus = new Bus();
+            Truck truck = new Truck();
+            taxi.ShowMaxspeed();
+            taxi.ShowMaxspeed(700);
+            taxi.ShowName();
+            bus.ShowMaxspeed();
+            bus.ShowMaxspeed(800);
+            bus.ShowName();
+            truck.ShowMaxspeed();
+            truck.ShowMaxspeed(900);
+            truck.ShowName();
+        }
+    }
+}
+----------------------------------------------------------
+namespace OOP07
+{
+
+    //다중상속
+    //유니콘~~~!!!! 날개가 있는 말!!!
+    class Horse
+    {
+        public void Run()
+        {
+            Console.WriteLine("말이 달리고 있습니다.");
+        }
+    }
+    class Angel{}
+    interface IWing
+    {
+        public void Fly(); //Abstract Method
+    }
+    interface IWing2
+    {
+        public void Fly(); //Abstract Method
+    }
+    class Unicon : Horse, IWing
+    {
+        //interface의 메소드 구현
+        public void Fly()
+        {
+            Console.WriteLine("유니콘이 날고 있습니다.");
+        }
+        //유니콘의 멤버메소드
+        public void PerformMagic()
+        {
+            Console.WriteLine("마법을 사용합니다.");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Unicon jack = new Unicon();
+            jack.Fly();
+            jack.PerformMagic();
+        }
+    }
+}
+----------------------------------------------------------
+namespace ConsoleApp22
+{
+    class Champion
+    {
+        public void Attack()
+        {
+            Console.WriteLine("채피언이 공격합니다.");
+        }
+    }
+    class Viego { }
+    interface ILevel
+    {
+        public void Alpha_Strike();
+    }
+    interface ILevel2
+    {
+        public void Meditation();
+    }
+    class MasterYi : Champion, ILevel
+    {
+        public void Alpha_Strike()
+        {
+            Console.WriteLine("Alpha_Strike를 사용합니다.");
+        }
+
+        public void Attack()
+        {
+            Console.WriteLine("마스터이가 공격합니다.");
+        }
+        public void Skill2()
+        { 
+            Console.WriteLine("Meditation을 사용합니다.");
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            MasterYi masterYi = new MasterYi();
+            masterYi.Attack();
+            masterYi.Alpha_Strike();
+            masterYi.Skill2();
+        }
+    }
+}
+-------------------------------------------------------------------
+using System.Globalization;
+
+namespace ConsoleApp23
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("1000이하의 완전수 : ");
+            int a = Int32.Parse(Console.ReadLine());
+            int answer = 0; 
+            for (int i = 1; i < a; i++)
+            {
+
+                if (a % i == 0)
+                {
+                    answer += i;
+                }
+            }
+            if (answer == a)
+            {
+                Console.WriteLine("yes");
+            }
+            else 
+            {
+                Console.WriteLine("no");
+            }
+            
+        } 
+    
+    }
+}
+--------------------------------------------------------------------
+namespace ConsoleApp25
+{
+    internal class prime
+    {
+        static void Main(string[] args)
+        {
+            int a = 1;
+            int N = Int32.Parse(Console.ReadLine());
+
+            for (int i = 2; i < N; i++)
+            {
+                if (N % i == 0)
+                {
+                    Console.WriteLine(i);
+                }
+
+            }
+        }
+    }
+}
+--------------------------------------------------------------------
+string input = Console.ReadLine();
+string[] numbers = input.Split(' ');
+
+int num1 = int.Parse(numbers[0]);
+int num2 = int.Parse(numbers[1]);
+
+double result = (double)num1 / num2
+
+Console.WriteLine(result);
+-------------------------------------------------------------------
+namespace ConsoleApp25
+{
+    internal class prime
+    {
+        static void Main(string[] args)
+        {
+            int answer = 0;
+
+            for (int i = 2; i <= 100; i++)
+            {
+                for (int j = 2; j < i; j++)
+                {
+                    if (i % j ==0)
+                    {
+                        answer++;
+                    }
+                }
+                if (answer == 0)
+                {
+                    Console.Write($"{i} ");
+                }
+                answer = 0;
+            }
+        }
+    }
+}
+------------------------------------------------------------------------------
+namespace ConsoleApp27
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int number = int.Parse(Console.ReadLine());
+            int sum = 0;
+
+            for (int i = 1; i < number; i++)
+            {
+                if (number % i == 0)
+                    sum += i;
+            }
+
+            //판별
+            if (number == sum)
+                Console.WriteLine("Yes");
+            else
+                Console.WriteLine("No");
+        }
+    }
+}
+-----------------------------------------------------------------------------
+namespace ConsoleApp25namespace ConsoleApp25
+{
+    internal class program
+    {
+        static void Main(string[] args)
+        {
+            //변수를 도구처럼 사용 할 수 있어야 한다~!!!!
+            bool flag = false; // flag변수
+            for (int i = 2; i <= 100; i++) 
+            {
+                for (int j = 2; j < i; j++)
+                {
+                    if(i % j == 0)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == false)
+                    Console.Write($"{i} ");
+                flag = false;
+            }
+            Console.WriteLine();
+        }
+    }
+}
+{
+    internal class program
+    {
+        static void Main(string[] args)
+        {
+            //변수를 도구처럼 사용 할 수 있어야 한다~!!!!
+            bool flag = false; // flag변수
+            for (int i = 2; i <= 100; i++) 
+            {
+                for (int j = 2; j < i; j++)
+                {
+                    if(i % j == 0)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == false)
+                    Console.Write($"{i} ");
+                flag = false;
+            }
+            Console.WriteLine();
+        }
+    }
+}
 
