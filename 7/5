@@ -475,3 +475,82 @@ namespace TestApp03
         }
     }
 }
+-------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp30
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numbers = new int[25];
+            Random random = new Random();
+
+            for (int i = 0; i < 25; i++)
+            {
+                numbers[i] = random.Next(1, 26);
+                for (int j = 0; j < i; j++)
+                {
+                    if (numbers[i] == numbers[j])
+                    {
+                        i--;
+                        break;
+                    }
+                }
+            }
+
+            int[] lottoNumbers = new int[25];
+            Array.Copy(numbers, 0, lottoNumbers, 0, 25);
+
+            Array.Sort(lottoNumbers);
+            foreach (int i in lottoNumbers)
+            {
+                Console.Write(i + " ");
+
+            }
+
+        }
+    }
+}
+------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp30
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //1.문자열을 입력
+            string words = Console.ReadLine();
+
+            //2. 변수 카운트변수 4개
+            int bigCnt = 0, smallCnt = 0, numberCnt = 0, specialCnt = 0;
+
+            //3. 카운팅 로직
+            for (int i = 0; i < words.Length; i++)
+            {
+                if(words[i] >= 'A' && words[i] <= 'Z')
+                    bigCnt++;
+                else if(words[i] >= 'a' && words[i] <= 'z')
+                    smallCnt++;
+                else if (words[i] >= '0' && words[i] <= '9')
+                    numberCnt++;
+                else specialCnt++;
+            }
+            Console.WriteLine($"대문자 : {bigCnt}");
+            Console.WriteLine($"대문자 : {smallCnt}");
+            Console.WriteLine($"대문자 : {numberCnt}");
+            Console.WriteLine($"대문자 : {specialCnt}");
+        }
+    }
+}
