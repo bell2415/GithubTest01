@@ -132,10 +132,10 @@ namespace ConsoleApp30
 
             for (int i = 0; i < 7; i++)
             {
-                numbers[i] = random.Next(1,46);
-                for (int j = 0; j<i; j++)
+                numbers[i] = random.Next(1, 46);
+                for (int j = 0; j < i; j++)
                 {
-                    if(numbers[i] == numbers[j])
+                    if (numbers[i] == numbers[j])
                     {
                         i--;
                         break;
@@ -148,11 +148,12 @@ namespace ConsoleApp30
             Array.Copy(numbers, 0, lottoNumbers, 0, 6);
 
             Array.Sort(lottoNumbers);
-            foreach (int i in lottoNumbers) 
+            foreach (int i in lottoNumbers)
             {
                 Console.Write(i + " ");
-                Console.WriteLine($"보너스 번호 {bonusNumber}");
+
             }
+            Console.WriteLine($"보너스 번호 {bonusNumber}");
         }
     }
 }
@@ -238,3 +239,239 @@ namespace ConsoleApp30
     }
 }
 -------------------------------------------------------------------
+using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp30
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] list = { 4, 5, 7, 3, 2, 1, 9, 8 };
+            int temp;
+
+            for (int i = 8 - 1;i > 0; i--)
+            {
+                for (int k = 0; k < i; k++)
+                {
+                    if (list[k] > list[k+1])
+                    {
+                        temp = list[k];
+                        list[k] = list[k+1];
+                        list[k+1] = temp;
+                    }
+                }
+            }
+            foreach(int i in list)
+            {
+                Console.WriteLine(i);
+            }
+        }
+    }
+}
+-----------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Property01
+{
+    class Person
+    {
+        public Person(double d)
+        {
+
+        }
+        public Person(string name)
+        {
+
+        }
+
+        public string Name { get; set; }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Person p = new Person("밥");
+            p.Name = "Bob";
+            Console.WriteLine("안녕하세요. " + p.Name + "씨");
+        }
+    }
+}
+---------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Property02
+{
+    class Person
+    {
+        public string name;
+
+        public string Name
+        {
+            get { return name;}
+            set
+            {
+                if(value.Length == 0)
+                {
+                    throw new ArgumentException("이름이 입력되지 않았습니다.");
+                }
+                else
+                {
+                    name = value;
+                }
+            }
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person = new Person();
+            person.Name = "홍길동";
+            Console.WriteLine(person.Name);
+        }
+    }
+}
+---------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Property02
+{
+    class Person
+    {
+        public string name;
+
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (value.Length == 0)
+                {
+                    throw new ArgumentException("이름이 입력되지 않았습니다.");
+                }
+                else
+                {
+                    name = value;
+                }
+            }
+        }
+    }
+    class Student
+    {
+        public string Name { get; set; } = "아무개";
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person = new Person();
+            person.Name = "홍길동";
+            Console.WriteLine(person.Name);
+        }
+    }
+}
+
+---------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TestApp02
+{
+    class User
+    {
+        private readonly string userID;        
+
+        private readonly string userPW;
+
+        public User(string userID, string userPW)
+        {
+            this.userID = userID; //상수 처리
+            this.userPW = userPW; //상수 처리
+        }
+        public void Print()
+        {
+            Console.WriteLine(this.userID );
+            Console.WriteLine(this.userPW );
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string uID = "abc";
+            string uPW = "abc";
+            User user = new User(uID, uPW);
+            user.Print();
+        }
+    }
+    ------------------------------------------
+    using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TestApp03
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] arr4 = new int[5] { 21, 98, 43, 27, 13 };
+            int[] arr5 = { 21, 98, 43, 27, 13 };
+            Console.WriteLine($"Max : {arr4.Max()}");
+            Console.WriteLine($"Max : {arr4.Min()}");
+            Console.WriteLine($"Max : {arr4.Sum()}");
+            Console.WriteLine($"Max : {arr4.Average()}");
+            Console.WriteLine($"Max : {arr4.Count()}");
+        }
+    }
+}
+-------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TestApp03
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Random random = new Random();
+            int[] score = new int[3]; 
+            
+            for (int i = 0; i < 3; i++)
+            {
+                score[i] = random.Next(70,101);
+            }
+            Console.WriteLine($"총점 : {score.Sum()}");
+            Console.WriteLine($"가장 높은 점수 : {score.Max()}");
+            Console.WriteLine($"가장 낮은 점수 : {score.Min()}");
+            Console.WriteLine($"평균점수 : {score.Average():F2}");
+        }
+    }
+}
