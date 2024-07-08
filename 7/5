@@ -115,13 +115,7 @@ namespace RandomApp01
     }
 }
 -------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConsoleApp30
+namespace ConsoleApp32
 {
     internal class Program
     {
@@ -151,7 +145,6 @@ namespace ConsoleApp30
             foreach (int i in lottoNumbers)
             {
                 Console.Write(i + " ");
-
             }
             Console.WriteLine($"보너스 번호 {bonusNumber}");
         }
