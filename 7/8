@@ -83,3 +83,55 @@ namespace ConsoleApp31
     }
 }
 -------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CalculatorApp02
+{
+    class Calculator
+    {
+        //멤버변수
+        private double radius;
+        private double pi = Math.PI;
+        private int width, height;
+        //생성자
+        //멤버메소드
+        public double ComputeTriangleArea(int _width, int _height)
+        {
+            width = _width;
+            height = _height;
+
+            double result = width * height / 2.0;
+
+            return result;
+        }
+        public double ComputeCirclrArea(int _radius)
+        {
+            radius = _radius;
+            double area = radius * radius * pi;
+
+            return area;
+        }
+
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //계산기를 꺼내서 삼각형의 넓이를 구하고 싶어.
+            Calculator cal = new Calculator();
+            int value1 = int.Parse(Console.ReadLine());
+            int value2 = int.Parse(Console.ReadLine());
+            double result = cal.ComputeTriangleArea(value1, value2);
+            Console.WriteLine(result);
+
+            //게산기를 꺼내서 원의 넓이를 구해봅시다.
+            int radius = Int32.Parse(Console.ReadLine());
+            result = cal.ComputeCirclrArea(radius);
+            Console.WriteLine(result);
+        }
+    }
+}
