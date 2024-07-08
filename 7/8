@@ -1,1 +1,85 @@
+namespace ConsoleApp31
+{
+    abstract class Shape
+    {
+        public abstract void Draw();
 
+    }
+    class Triangle : Shape
+    {
+        public override void Draw()
+        {
+            Console.WriteLine("삼각형을 그리다.");
+        }
+    }
+    class Circle : Shape
+    {
+        public override void Draw()
+        {
+            Console.WriteLine("원을 그리다.");
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Triangle t1 = new Triangle();
+            Shape s1 = new Triangle();
+            s1.Draw();
+            Shape s2 = new Circle();
+            s2.Draw();
+            Circle c = new Circle();
+            c.Draw();
+
+            s1 = new Circle();
+        }
+    }
+}
+---------------------------------------------------------
+namespace ConsoleApp31
+{
+    abstract class Terran
+    {
+        public virtual void Attack()
+        {
+            Console.WriteLine("공격합니다.");
+        }
+    }
+    class Marin : Terran
+    {
+        public override void Attack()
+        {
+            Console.WriteLine("마린이 공격합니다.");
+        }
+    }
+    class FireBat : Terran 
+    {
+        public override void Attack()
+        {
+            Console.WriteLine("파이어뱃이 공격합니다.");
+        }
+    }
+
+    class SiegeTank : Terran
+    {
+        public override void Attack()
+        {
+            Console.WriteLine("시저탱크가 포탄으로 공격합니다.");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Terran teranUnit001 = new Marin();
+            Terran teranUnit002 = new FireBat();
+            Terran teranUnit003 = new SiegeTank();
+
+            teranUnit001.Attack();
+            teranUnit002.Attack();
+            teranUnit003.Attack();
+        }
+    }
+}
+-------------------------------------------------------------------
