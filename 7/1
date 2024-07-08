@@ -58,7 +58,9 @@ namespace VariableChange
             }
         }
     }
-}namespace VariableChange
+}
+-------------------------------------------------
+namespace VariableChange
 {
     internal class Program
     {
