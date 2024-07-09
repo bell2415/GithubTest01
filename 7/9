@@ -1,1 +1,421 @@
+namespace MethodTest01
+{
+    internal class Program
+    {
+        static int CallByValueDemo(int x)
+        {
+            return x;
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("정수를 입력하세요 : ");
+            int inputNumber = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("입력하신 정수의 값은 {0}입니다.", CallByValueDemo(inputNumber));
+        }
+    }
+}
+------------------------------------------------------------------------------------------------------
+static void GetNumbers(int x, int y)
+{
+    x = 0;
+    y = 0;
+}
+static void Main(string[] args)
+{
+    int a = 7;
+    int b = 8;
+
+    GetNumbers(a, b);
+    Console.WriteLine($"a에 저장된 값은 {a}입니다.");
+    Console.WriteLine($"b에 저장된 값은 {b}입니다.");
+}
+------------------------------------------------------------------------------------------------------
+namespace MethodTest02
+{
+    internal class Program
+    {
+        static void GetNumbers(ref int x, ref int y)
+        {
+            x = 0;
+            y = 0;
+        }
+        static void Main(string[] args)
+        {
+            int a = 7;
+            int b = 8;
+
+            GetNumbers(ref a, ref b);
+            Console.WriteLine($"a에 저장된 값은 {a}입니다.");
+            Console.WriteLine($"b에 저장된 값은 {b}입니다.");
+        }
+    }
+}
+---------------------------------------------------------------------------------------------------
+namespace MethodTest02
+{
+    internal class Program
+    {
+        static void GetValue(out int x)
+        {
+            x = 1; 
+        }
+        //static void GetNumbers(out int x, out int y)
+        //{
+        //    x = 0;
+        //    y = 0;
+        //}
+        static void Main(string[] args)
+        {
+            int a = 100;
+            GetValue(out a);
+            Console.WriteLine($"a에 저장된 값은 {a}");
+            //int a = int.Parse(Console.ReadLine());
+            //int b = int.Parse(Console.ReadLine());
+
+            //GetNumbers(out a, out b);
+            //Console.WriteLine($"a에 저장된 값은 {a}입니다.");
+            //Console.WriteLine($"b에 저장된 값은 {b}입니다.");
+        }
+    }
+}
+------------------------------------------------------------------------------------------
+namespace Recursive01
+{
+    internal class Program
+    {
+        static void Recursive(int n)
+        {
+            Console.WriteLine(n++);
+            Recursive(n);
+        }
+        static void Main(string[] args)
+        {
+            Recursive(0);
+        }
+    }
+}
+-------------------------------------------------------------
+namespace Recursive01
+{
+    internal class Program
+    {
+        static int Factorial(int n)
+        {
+            if (n == 1)
+                return n;
+            else
+                return n * Factorial(n - 1);    
+        }
+        static void Main(string[] args)
+        {
+            int a = 5;
+            Console.WriteLine(Factorial(a));
+        }
+    }
+}
+---------------------------------------------------------------------------
+namespace FactorialDynamic
+{
+    internal class Program
+    {
+        static Dictionary<int, long> arr = new Dictionary<int, long>();
+        static void Main(string[] args)
+        {
+            int n = 5;
+
+            arr[0] = 1;
+            arr[1] = 1;
+
+            Console.WriteLine(Factorial(n));
+        }
+
+        static long Factorial(int n)
+        {
+            if(arr.ContainsKey(n))
+            {
+                return arr[n];
+            }
+            arr[n] = n * Factorial(n - 1);
+            return arr[n];
+        }
+       
+    }
+}
+---------------------------------------------------------------
+namespace FactorialDynamic
+{
+    internal class Program
+    {
+        static long[] arr;
+        static void Main(string[] args)
+        {
+            //Dynamic Programming Factorial!!!
+            
+            int n = 5;
+            int[] arr = new int[n + 1];
+
+            arr[0] = 1; //이 코드가 핵심!!!!
+
+            for(int i = 1; i <= n; i++)
+            {
+                arr[i] = i * arr[i - 1];
+            }
+            Console.WriteLine(arr[n]);
+        }
+
+    }
+}
+------------------------------------------------------------
+using System.Numerics;
+
+namespace FactorialDynamic
+{
+    internal class Program
+    {
+        static long[] arr;
+        static void Main(string[] args)
+        {
+            //Dynamic Programming Factorial!!!
+
+            int n = 5;
+            BigInteger[] arr = new BigInteger[n + 1];
+
+            arr[0] = 1; //이 코드가 핵심!!!!
+
+            for (int i = 1; i <= n; i++)
+            {
+                arr[i] = i * arr[i - 1];
+            }
+            Console.WriteLine(arr[n]);
+
+            foreach(BigInteger i in arr)
+            {
+                Console.Write($"{i}\t");
+            }
+            Console.WriteLine();
+        }
+
+    }
+}
+---------------------------------------------------------------
+namespace FactorialRecursive
+{
+    internal class Program
+    {
+        static int Factorial(int n)
+        {
+            //4! : 4 * 3 * 2 * 1
+            if (n == 1)
+            {
+                Console.WriteLine(n);
+                return 1;
+            }
+            else
+            {
+                Console.WriteLine(n);
+                return n * Factorial(n - 1); // 4 * Factorial(3), 3 * Factorial(2) ...
+
+            }
+        }
+        static void Main(string[] args)
+        {
+            //3! : 3 * 2 * 1
+            //4! : 4 * 3 * 2 * 1
+
+            int n = 4;
+            Console.WriteLine($"\n{n}:Factorial 합 : {Factorial(n)}");
+        }
+    }
+}
+--------------------------------------------------------------------------------------------------
+using System.Numerics;
+
+namespace ConsoleApp36
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = 17;
+            BigInteger[] arr = new BigInteger[n + 1];
+
+            arr[0] = 1;
+
+            for(int i = 1; i <= n; i++)
+            {
+                arr[i] = i * arr[i - 1];
+            }
+
+            foreach (BigInteger i in arr)
+                Console.Write(i + " ");
+        }
+    }
+}
+------------------------------------------------------------------------------
+namespace LocalVariableTest
+{
+    internal class Program
+    {
+        static string name = "이순신"; // 전역변수, 멤버변수
+        static void ShowName()
+        {
+            //string name = "홍길동"; //지역변수
+            //name = "홍길동";
+            Console.WriteLine(name);
+        }
+        static void Main(string[] args)
+        {
+            ShowName();
+            Console.WriteLine(name);
+        }
+    }
+}
+-----------------------------------------------------------------------------------
+namespace Code65
+{
+    internal class Program
+    {
+        static int num;
+        static string str;
+
+        static void PrintVars()
+        {
+            int num = 100;
+            string str = "홍길동";
+
+            Console.WriteLine($"PrintVars : num = {num}, str = {str}");
+
+        }
+        static void Main(string[] args)
+        {
+            PrintVars();
+            Console.WriteLine($"Main : num = {num}, str = str");
+        }
+    }
+}
+------------------------------------------------------------------------------------
+namespace Code66
+{
+    class ClassA
+    {
+        private int a;
+
+        private void PrintOutA()
+        {
+            Console.WriteLine(a);
+        }
+    }
+    class ClassB
+    {
+        public int b;
+        //멤버메소드
+        public void PrintOutB()
+        {
+            Console.WriteLine(b);
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            ClassA x = new ClassA(); //객체 만들기는 지장이 없다.
+            //x.a = 123;
+            //x.PrintOutA();
+
+            ClassB y = new ClassB();
+            y.b = 123;
+            y.PrintOutB();
+        }
+    }
+}
+-------------------------------------------------------------------
+namespace Code68
+{
+    class BankAccount
+    {
+        //멤버 ((잔고))
+        private double balance = 0;
+
+        //메소드1. 예금하다
+        public void Deposit(double money)
+        {
+            balance += money;
+        }
+        //메소드 2. 인출하다
+        //
+        public void WithDraw(double money)
+        {
+            balance -= money;
+        }
+        //메소드 3. 잔고확인
+        //
+        public void GetBalance()
+        {
+            Console.WriteLine($"잔고확인 : {balance}");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            BankAccount account = new BankAccount();
+            account.Deposit(50000);
+            account.GetBalance();
+
+            //30000만원 인출
+            account.WithDraw(30000);
+            account.GetBalance();
+
+        }
+    }
+}
+-----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
