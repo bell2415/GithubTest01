@@ -1,1 +1,510 @@
+namespace OOPTest05
+{
+    class Person    //명사, 대문자로 시작!
+    {
+        //1.멤버변수
+        private string name;
+        private int age;
 
+        //Property
+        //public string Name
+        //{
+        //    get;
+        //    set;
+        //}
+        //public int Age
+        //{
+        //    get;
+        //    set;
+        //}
+        //2.생성자 , 1개이상
+        public Person() //default 생성자
+        {
+        }
+        public Person(string _name)
+        {
+            name = _name;
+        }
+        public Person(string _name, int _age)
+        {
+            name = _name;
+            age = _age;
+        }
+        //3.멤버메소드
+        public void Eat()
+        {
+            Console.WriteLine("밥을 먹습니다.");
+        }
+        public void Eat(string food)
+        {
+            Console.WriteLine($"{food}를 먹습니다.");
+        }
+
+        //Getter, Setter
+        public string GetName()
+        {
+            return name;
+        }
+        public void SetName(string name)
+        {
+            this.name = name; 
+        }
+        public int GetAge()
+        {
+            return age;
+        }
+        public void SetAge(int age)
+        {
+            this.age = age; 
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Person tom = new Person();
+            tom.Eat();
+            tom.Eat("오렌지");
+            Console.WriteLine(tom.GetName());
+
+            Person sam = new Person("Sam");
+            Console.WriteLine(sam.GetName());
+            Console.WriteLine(sam.GetAge());
+
+            Person tony = new Person("Tony", 24);
+            Console.WriteLine(tony.GetName());
+            Console.WriteLine(tony.GetAge());
+        }
+    }
+}
+
+---------------------------------------------------------------
+using System.Xml.Linq;
+
+namespace ConsoleApp40
+{
+    class Car
+    {
+        private string brand;
+        private int speed;
+
+        public Car()
+        { 
+        }
+        public Car(string _brand)
+        {
+            brand = _brand;
+        }
+        public Car(string _brand, int _speed)
+        {
+            brand = _brand;
+            speed = _speed;
+        }
+
+        public void Showbrand()
+        {
+            Console.WriteLine("브랜드 ㅇㅇ 입니다.");
+        }
+        public void Showbrand(string brand)
+        {
+            Console.WriteLine($"브랜드 {brand} 입니다.");
+        }
+
+        public string GetBrand()
+        {
+            return brand;
+        }
+        public void SetBrand(string brand)
+        {
+            this.brand = brand;
+        }
+        public int GetSpeed()
+        {
+            return speed;
+        }
+        public void SetSpeed(int speed)
+        {
+            this.speed = speed;
+        }
+    }
+
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Car car = new Car("car0");
+            car.Showbrand();
+            car.Showbrand("0");
+            Console.WriteLine(car.GetBrand());
+            Console.WriteLine();
+
+            Car car1 = new Car("car1");
+            Console.WriteLine(car1.GetBrand());
+            Console.WriteLine(car1.GetSpeed());
+            Console.WriteLine();
+
+            Car car2 = new Car("car2", 200);
+            Console.WriteLine(car2.GetBrand());
+            Console.WriteLine(car2.GetSpeed());
+        }
+    }
+}
+---------------------------------------------------
+namespace PropertyTest
+{
+    class Product
+    {
+        //private string name;
+        //private int price;
+        private int stock;
+
+        //Property
+        public string Name { get; set; }
+        public int Price { get; set; }
+        public int Stock 
+        {
+            get {  return stock; }
+            set
+            {
+                if(value < 0)
+                {
+                    Console.WriteLine("재고가 없어요");
+                }
+                stock = value;
+            }
+        }
+
+
+        public Product(string name, int price, int stock)
+        {
+            Name = name;
+            Price = price;
+            Stock = stock;
+        }
+        
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Product product = new Product("초코파이", 800, 10);
+            product.Stock = -5;
+        }
+    }
+}
+----------------------------------------------------------
+using System.Xml.Linq;
+
+namespace ConsoleApp40
+{
+    class Car
+    {
+        public string Brand { get; set; }
+        public int Speed { get; set; }
+
+        public Car()
+        {
+        }
+        public Car(string _brand)
+        {
+            Brand = _brand;
+        }
+        public Car(string _brand, int _speed)
+        {
+            Brand = _brand;
+            Speed = _speed;
+        }
+
+        public void Showbrand()
+        {
+            Console.WriteLine("브랜드 ㅇㅇ 입니다.");
+        }
+        public void Showbrand(string brand)
+        {
+            Console.WriteLine($"브랜드 {brand} 입니다.");
+        }
+    }
+   
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Car car = new Car("car0");
+            car.Showbrand();
+            car.Showbrand("0");
+            Console.WriteLine(car.Brand);
+            Console.WriteLine();
+
+            Car car1 = new Car("car1");
+            Console.WriteLine(car1.Brand);
+            Console.WriteLine(car1.Speed);
+            Console.WriteLine();
+
+            Car car2 = new Car("car2", 200);
+            Console.WriteLine(car2.Brand);
+            Console.WriteLine(car2.Speed);
+        }
+    }
+}
+----------------------------------------------------------
+namespace InterfaceTest01
+{
+    interface IMaker
+    {
+        void MadeWhere();
+        void Warehouse();
+
+    }
+    class Korea : IMaker
+    {
+        public void MadeWhere()
+        {
+            Console.WriteLine("국산입니다.");
+        }
+
+        public void Warehouse()
+        {
+            Console.WriteLine("상품등록완료");
+        }
+    }
+    class China : IMaker
+    {
+        public void MadeWhere()
+        {
+            Console.WriteLine("중국산입니다.");
+        }
+
+        public void Warehouse()
+        {
+            Console.WriteLine("상품등록완료");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            IMaker korea = new Korea();
+            korea.MadeWhere();
+            korea.Warehouse();
+
+            IMaker china = new China();
+            china.MadeWhere();
+            china.Warehouse();
+        }
+    }
+}
+-------------------------------------------------------
+namespace InterfaceTest01
+{
+    interface IMaker
+    {
+        void MadeWhere();
+        void Warehouse();
+
+    }
+    class Korea : IMaker
+    {
+        public void MadeWhere()
+        {
+            Console.WriteLine("국산입니다.");
+        }
+
+        public void Warehouse()
+        {
+            Console.WriteLine("상품등록완료");
+        }
+    }
+    class China : IMaker
+    {
+        public void MadeWhere()
+        {
+            Console.WriteLine("중국산입니다.");
+        }
+
+        public void Warehouse()
+        {
+            Console.WriteLine("상품등록완료");
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            IMaker m = new Korea();
+            m.MadeWhere();
+            m.Warehouse();
+
+            m = new China();
+            m.MadeWhere();
+            m.Warehouse();
+        }
+    }
+}
+------------------------------------------------
+namespace ConsoleApp41
+{
+    interface IMaker
+    {
+        void MadeWhere();
+    }
+    interface IOwner
+    {
+        void WhoOwns();
+    }
+
+    class Korea : IMaker, IOwner
+    {
+        public void MadeWhere()
+        {
+            Console.WriteLine("대한민국에서 만들었습니다.");
+        }
+
+        public void WhoOwns()
+        {
+            Console.WriteLine("대한민국회사 제품입니다.");
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            IMaker km = new Korea();
+            km.MadeWhere();
+            //km.WhoOwns(); //안보임
+            IOwner ko = new Korea();
+            //ko.MadeWher(); //안보임
+            ko.WhoOwns();
+
+            object obj = new Korea();
+            //obj.MadeWhere(); //Accesss 불가
+            //obj.WhoOwns(); //Accesss 불가
+
+            Korea korea = new Korea();
+            korea.MadeWhere();
+            korea.WhoOwns();
+        }
+    }
+}
+------------------------------------------------------
+namespace Code117
+{
+    struct School
+    {
+        public string schName;
+        public string stName;
+        public int stGrade;
+
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            School sc;
+            sc.schName = "레이크사이드 고등학교";
+            sc.stGrade = 100;
+            Console.WriteLine(sc.schName);
+            
+        }
+    }
+}
+-----------------------------------------------------
+namespace DelegateApp01
+{
+    //Delegate
+    //Code119
+    internal class Program
+    {
+        //delegate
+        delegate void PrintDelegate(string str);
+
+        class Print
+        {
+            public void PrintOut(string str)
+            {
+                Console.WriteLine(str);
+            }
+        }
+        static void Main(string[] args)
+        {
+            Print p = new Print();
+            PrintDelegate pdg = p.PrintOut;
+            pdg("안녕하세요");
+        }
+    }
+}
+------------------------------------------------
+namespace DelegateApp02
+{
+    internal class Program
+    {
+        public delegate int Compute(int a, int b);
+
+        static void Main(string[] args)
+        {
+            int x = 10;
+            int y = 5;
+
+            Compute compute = Plus;
+            Console.WriteLine($"덧셈을 하게 됩니다. : {compute(x, y)}");
+            compute = Minus;
+            Console.WriteLine($"뺄셈을 하게 됩니다. : {compute(x, y)}");
+            compute = Multiple;
+            Console.WriteLine($"곱셈을 하게 됩니다. : {compute(x, y)}");
+        }
+        //참조메소드
+        public static int Plus(int a, int b)
+        {
+            return a + b;
+        }
+
+        public static int Minus(int a, int b)
+        {
+            return a - b;
+        }
+        
+        public static int Multiple(int a, int b)
+        {
+            return a * b;
+        }
+    }
+}
+namespace DelegateApp03
+{
+    class Calculator
+    {
+        public int Plus(int a, int b)
+        { return a + b; }
+        public int Minus(int a, int b)
+        { return a - b; }
+        public double Divide(int a, int b)
+        { return (double)a / b; }
+    }
+    internal class Program
+    {
+        //public delegate int Compute(int a, int b); //선언!!!
+
+        static void Main(string[] args)
+        {
+            int a = 100, b = 200;
+            Calculator calculator = new Calculator();
+            //Compute compute = calculator.Plus;
+            Func<int, int, int> intCompute = calculator.Plus;
+            //Console.WriteLine("덧셈 : {0}", compute(a, b));
+            Console.WriteLine("덧셈 : {0}", intCompute(a, b));
+
+            //compute = calculator.Minus;
+            intCompute = calculator.Minus;
+            //Console.WriteLine("뺄셈 : {0}", compute(a, b));
+            Console.WriteLine("뺄셈 : {0}", intCompute(a, b));
+
+            //compute = calculator.Divide;
+            Func<int, int, double> doubleCompute = calculator.Divide;
+            Console.WriteLine("나눗셈 : {0}", doubleCompute(a, b));
+            //Console.WriteLine("나눗셈 : {0}", compute(a, b));
+        }
+    }
+}
+-------------------------------------------------------------
