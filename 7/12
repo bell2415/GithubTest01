@@ -1,1 +1,159 @@
+namespace OOPDelegateApp
+{
+    class Calculator
+    { 
+        public int Plus(int a, int b)
+        {
+            return a + b;
+        }
+        public int Minus(int a, int b)
+        {
+            return a - b; 
+        }
+    }
+    internal class Program
+    {
+        delegate int Compute(int a, int b);
+        static void Main(string[] args)
+        {
+            Calculator cal = new Calculator();
+            Compute compute = cal.Plus;
+            Console.WriteLine(compute(5, 7));
+            compute = cal.Minus;
+            Console.WriteLine(compute(5, 7));
+        }
+    }
+}
+-----------------------------------------------------
+namespace DelegateSingo
+{
+    class ReportSystem
+    {
+        public void PoliceStation()
+        {
+            Console.Write("경찰서에 신고하다.");
+        }
+        public void FireStation()
+        {
+            Console.Write("소방서에 신고하다.");
+        }
+        public void ONTA()
+        {
+            Console.Write("국세청에 신고하다.");
+        }
+    }
+    internal class Program
+    {
+        delegate 
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+        }
+    }
+}
+---------------------------------------------------
+namespace DelegateSingo
+{
+    class EmergencyCall
+    {
+        public void PoliceCall()
+        {
+            Console.WriteLine("경찰서에 신고합니다.");
+        }
+        
+        public void FireStationCall()
+        {
+            Console.WriteLine("소방서에 신고합니다.");
+        }
+        public void TaxStationCall()
+        {
+            Console.WriteLine("국세청에 신고합니다.");
+        }
+    }
 
+    internal class Program
+    {
+        delegate void report();
+        static void Main(string[] args)
+        {
+            EmergencyCall ec = new EmergencyCall();
+            report Report = ec.PoliceCall;
+            Report += ec.FireStationCall;
+            Report += ec.TaxStationCall;
+            Report();
+
+            Report -= ec.TaxStationCall;
+
+            Console.WriteLine();
+            Report();
+        }
+    }
+}
+------------------------------------------------------------
+namespace Code126
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            char[] chars = new char[3];
+            chars[0] = 'A';
+            chars[1] = 'B';
+            chars[2] = 'C';
+
+            List<char> chrList = new List<char>();
+            chrList.Add('A');
+            chrList.Add('B');
+            chrList.Add('C');
+
+            foreach (char c in chars)
+            {
+                Console.WriteLine(c);
+            }
+
+            List<int> intList = new List<int>();
+            intList.Add(10);
+            intList.Add(20);
+            intList.Add(30);
+
+            foreach (int i in intList) 
+            {
+                Console.WriteLine(i);
+            }
+        }
+    }
+}
+------------------------------
+namespace ListTest01
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //1.리스트를 만들고 10, 20 ... ~ 50까지 넣기 정수형 list이름은 numberList
+            List<int> numberList = new List<int>();
+            int num = 10;
+            for(int i = 0; i < 5; i++)
+            {
+                numberList.Add(num);
+                num += 10;
+            }
+
+            Console.WriteLine($"배열요소의 수 : {numberList.Count}");
+            Console.WriteLine($"배열의 크기 : {numberList.Capacity}");
+            numberList.RemoveAt(3); //index 제거, 전체 크기가 하나 줄어듦
+            numberList.RemoveAt(20); //값으로 제거, 전체 크기는 줄지 않음, 중복되면 앞쪽 값 1개 제거
+            numberList.Insert(0, 5);
+
+            numberList.Sort();
+            numberList.Reverse(); //값을 역순으로..
+
+            //출력
+            foreach(int i in numberList)
+            {
+
+            }
+        }
+    }
+}
+------------------------------------------------------------------------------
