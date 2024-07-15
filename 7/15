@@ -1,1 +1,264 @@
+namespace ObjectList
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            char[] arr = new char[3] { 'A', 'B', 'C' };
+            //arr[0] = 'a'
+            List<char> list = new List<char>();
+            list.Add('X'); list.Add('Y'); list.Add('Z');
 
+            foreach(char ch in list)
+            {
+                Console.WriteLine(ch);
+            }
+        }
+    }
+}
+------------------------------------------------------------
+namespace ObjectList
+{
+    internal class Program
+    {
+        class Person
+        {
+            public string name;
+        }
+        static void Main(string[] args)
+        {
+            string[] arr = new string[3] { "홍길동", "이순신", "강감찬" };
+            //arr[0] = 'a'
+            List<char> list = new List<char>();
+            list.Add('X'); list.Add('Y'); list.Add('Z');
+
+            Person[] persons = new Person[2];
+            Person p1 = new Person();
+            p1.name = "홍길동";
+            persons[0] = p1;
+            Person p2 = new Person();
+            p2.name = "이순신";
+            persons[1] = p2;
+
+            List<Person> list2 = new List<Person>();
+            Person p3 = new Person();
+            p3.name = "홍길동";
+            list2.Add(p3);
+            Person p4 = new Person();
+            p4.name = "이순신";
+            list2.Add(p4);
+
+            foreach (Person p in persons)
+            {
+                Console.WriteLine(p.name);
+            }
+        }
+    }
+}
+----------------------------------------------------------------------------------
+using System;
+
+namespace ListObject01
+{
+    class Student
+    {
+        public string Name { get; set; }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //1. 리스트 studentList를 만드세요.
+            List<Student> studentList = new List<Student>();
+            //2. 학생 3명을 만들어서 리스트에 넣으세요.
+            Student st1= new Student();
+            Student st2 = new Student();
+            Student st3 = new Student();
+            //3. 학생은 "이순신", "강감찬", "을지문덕"
+            st1.Name = "이순신";
+            st2.Name = "강감찬";
+            st3.Name = "을지문덕";
+            //4. 리스트에 학생을 담습니다.
+            studentList.Add(st1);
+            studentList.Add(st2);
+            studentList.Add(st3);
+            //5. 출력은 이름만 출력하고 순환문은 foreach를 사용해 주세요.
+            foreach (Student student in studentList) 
+            {
+                Console.WriteLine(student.Name);
+            }
+        }
+    }
+}
+-------------------------------------------------------------------------
+namespace QuizObjectList
+{
+    class Car
+    {
+        public string brand { get; set; }
+        public string speed { get; set; }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Car> list = new List<Car>();
+            Car car1 = new Car();
+            Car car2 = new Car();
+            Car car3 = new Car();
+            car1.brand = "현대";
+            car2.brand = "기아";
+            car3.brand = "BMW";
+            car1.speed = "300km";
+            car2.speed = "280km";
+            car3.speed = "290km";
+            list.Add(car1);
+            list.Add(car2);
+            list.Add(car3);
+
+            foreach (Car car in list)
+            {
+                Console.WriteLine(car.brand);
+                Console.WriteLine(car.speed);
+            }
+            //1. 브랜드와 스피드 다른 자동차 3개를 만드세요.
+            //2. car 객체를 담는 carList를 만듭니다.
+            //3. carList를 이용해서 자동차의 브랜드와 속도를 출력하세요.
+        }
+    }
+}
+------------------------------------------------------------------------
+namespace CurrentTimeApp
+{
+    public partial class Form1 : Form
+    {
+        //멤버변수
+        private int number;
+        private DateTime nowTime;
+
+        //생성자
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        //멤버메소드
+        public void GetNumber()
+        {
+            number++;
+        }
+        private void OutNumber()
+        {
+            textBox1.AppendText(number + "\r\n");
+        }
+        public void GetTime()
+        {
+            nowTime = DateTime.Now;
+
+        }
+        public void OutTime()
+        {
+            textBox2.AppendText(nowTime + "\r\n");
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                GetNumber();
+                OutNumber();
+                GetTime();
+                OutTime();
+                Thread.Sleep(1000);
+            }
+        }
+    }
+}
+-------------------------------------------------------------------
+namespace ConsoleApp49
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("년도 : ");
+            int year = Int32.Parse(Console.ReadLine());
+            Console.Write("월 : ");
+            int month = Int32.Parse(Console.ReadLine());
+            Console.Write("년도 : ");
+            int day = Int32.Parse(Console.ReadLine());
+
+            Console.WriteLine();
+
+            var time = new DateTime(year, month, day);
+            var str = time.ToString("yyyy-MM-dd");
+
+            Console.WriteLine(str);
+            Console.WriteLine();
+
+            DateTime now = DateTime.Now;
+
+            Console.Write("현재시간 : ");
+            Console.WriteLine(now.ToString("yyyy-MM-dd HH:mm:ss"));
+        }
+    }
+}
+---------------------------------------------------------------------
+namespace DateTimeTest01
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("년도 : ");
+            int year = Int32.Parse(Console.ReadLine());
+            Console.Write("월 : ");
+            int month = Int32.Parse(Console.ReadLine());
+            Console.Write("일 : ");
+            int day = Int32.Parse(Console.ReadLine());
+
+            string time = new DateTime(year, month, day).ToString("yyyy-MM-dd");
+            Console.WriteLine(time);
+
+            Console.Write("현재시간 : ");
+            string currentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:dd");
+            Console.WriteLine(currentTime);
+        }
+    }
+}
+---------------------------------------------------------------------------------------
+namespace WinFormOddEven
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int a = Int32.Parse(textBox1.Text);
+            int totaleven = 0;
+            int totalodd = 0;
+            
+            for (int i = 1; i <= a; i++) 
+            {
+                if (i % 2 == 0)
+                {
+                    totaleven += i;
+                    textBox3.AppendText(i + "+");
+                }
+
+                else
+                {
+                    totalodd += i;
+                    textBox2.AppendText(i + "+");
+                }
+            }
+            textBox2.AppendText(" = " + totalodd);
+            textBox3.AppendText(" = " + totaleven);
+
+
+
+        }
+    }
+}
