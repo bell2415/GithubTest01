@@ -1,1 +1,222 @@
+--테이블 구성정보 보기
+DESC EMPLOYEES;
+--검색
+SELECT * FROM EMPLOYEES;
+--부서 테이블 구성정보 보기
+DESC DEPARTMENTS;
+SELECT * FROM DEPARTMENTS;
 
+--직원테이블에서 FIRST_NAME, 급여(SALARY)만 출력해 보세요.
+SELECT FIRST_NAME, SALARY FROM EMPLOYEES;
+--LAST_NAME과 입사일만 검색(SELECT)해 보세요.
+SELECT LAST_NAME,HIRE_DATE FROM EMPLOYEES ORDER BY LAST_NAME;
+
+DESC EMPLOYEES;
+---------------------------------------------------------------
+select * FROM EMP;
+SELECT EMPNO, ENAME, DEPTNO FROM EMP;
+
+--중복이 있는 경우
+SELECT JOB, DEPTNO FROM EMP;
+
+SELECT DISTINCT JOB, DEPTNO FROM EMP;
+--연산식 사용하기
+SELECT * FROM EMP;
+SELECT ENAME 이름, SAL 월급, (SAL + SAL+SAL+SAL+COMM)분기급여 FROM EMP;
+
+--이름(ENAME), 월급(SAL), 일년급여(SAL*12) 검색해 보세요~!
+SELECT ENAME AS "이름", 
+       SAL AS "월급", 
+       SAL*12 AS "일년급여"
+FROM EMP    
+ORDER BY SAL DESC;
+
+--테이블 삭제
+DROP TABLE EMP_DDL;
+--P313 테이블 만들기
+CREATE TABLE EMP_DDL (
+    EMPNO    NUMBER(4),
+    ENAME    VARCHAR2(10),
+    JOB      VARCHAR2(9)
+);
+--삽입
+INSERT INTO EMP_DDL
+VALUES(1,'TOM', 'MANAGER');
+INSERT INTO EMP_DDL
+VALUES(2,'홍길동', '대리');
+--검색
+SELECT * FROM EMP_DDL;
+--------------------------------------------------
+select * FROM EMP;
+SELECT EMPNO, ENAME, DEPTNO FROM EMP;
+
+--중복이 있는 경우
+SELECT JOB, DEPTNO FROM EMP;
+
+SELECT DISTINCT JOB, DEPTNO FROM EMP;
+--연산식 사용하기
+SELECT * FROM EMP;
+SELECT ENAME 이름, SAL 월급, (SAL + SAL+SAL+SAL+COMM)분기급여 FROM EMP;
+
+--이름(ENAME), 월급(SAL), 일년급여(SAL*12) 검색해 보세요~!
+SELECT ENAME AS "이름", 
+       SAL AS "월급", 
+       SAL*12 AS "일년급여"
+FROM EMP    
+ORDER BY SAL DESC;
+
+--테이블 삭제
+DROP TABLE EMP_DDL;
+--P313 테이블 만들기
+CREATE TABLE EMP_DDL (
+    EMPNO    NUMBER(4),
+    ENAME    VARCHAR2(10),
+    JOB      VARCHAR2(9)
+);
+--삽입
+INSERT INTO EMP_DDL
+VALUES(1,'TOM', 'MANAGER');
+INSERT INTO EMP_DDL
+VALUES(2,'홍길동', '대리');
+--검색
+SELECT * FROM EMP_DDL;
+
+DROP TABLE student;
+--학생 테이블 만들기
+CREATE TABLE student (
+    id       number(4),
+    name     VARCHAR2(20),
+    hp       VARCHAR2(13),
+    location varchar2(50)
+);
+--학생 테이블 구조 보기
+DESC student;
+--검색
+SELECT * FROM STUDENT;
+--삽입(INSERT)
+INSERT INTO STUDENT (id, name, hp, location)
+VALUES (1, '홍길동', '010-1111-111', '안동');
+------------------------------------------------------------
+--SQL 학습
+SELECT * FROM EMP;
+--중복 제거 및 오름차순으로 검색해주세요.
+SELECT DISTINCT DEPTNO FROM EMP ORDER BY DEPTNO;
+--급여가 높은순으로 이름과 급여를 출력해 주세요. 정렬은 급여를 기준으로 내림차순으로 정렬해주세요.
+SELECT ENAME, JOB, SAL FROM EMP ORDER BY SAL DESC;
+------------------------------------------------------------------------------------------------------
+-- 4-14 부서번호(오름차순), 급여(내림차순)
+SELECT * FROM EMP;
+
+SELECT * FROM EMP
+ORDER BY DEPTNO ASC, SAL DESC;
+
+SELECT * FROM EMP
+ORDER BY SAL DESC, DEPTNO ASC;
+
+--연습문제 P92
+--Q2
+--CLERK
+--SALEMAN
+--PRESIDENT
+--MANAGER
+--ANALYST
+SELECT DISTINCT JOB FROM EMP;
+--EMP테이블에서 부서번호가 30인 데이터만 호출해 봅시다.
+SELECT * FROM EMP
+WHERE DEPTNO = 30;
+--EMP테이블에서 직업이 'MANAGER'인 데이터만 호출해 봅시다.
+SELECT * FROM EMP
+WHERE JOB = 'MANAGER';
+--직업이 'MANAGER' 부서번호 30인 사원을 출력해 보세요.
+SELECT * FROM EMP
+WHERE DEPTNO = 30
+AND JOB = 'MANAGER';
+--부서번호가 30번인 모든사람과 JOP이 'CLERK'인 모든 사람을 출력하세요.
+SELECT * FROM EMP
+WHERE DEPTNO = 30
+OR JOB = 'CLERK';
+
+--산술연산
+SELECT * FROM EMP
+WHERE SAL * 12 = 36000;
+--급여가 $3000 이상인 직원을 모두 출력하라.
+SELECT * FROM EMP WHERE SAL >= 3000;
+SELECT * FROM EMP;
+
+--급여가 2500 이상이고 직업이 'ANALYST'인 사원은???
+SELECT * FROM EMP
+WHERE SAL >= 2500
+AND JOB = 'ANALYST';
+
+--알파벳의 크기(?) - ENAME이 'F' ~ 'Z'까지 출력하세요.
+SELECT * FROM EMP
+WHERE ENAME >= 'F' ORDER BY ENAME;
+
+--급여가 3000이 아닌 모든 데이터 출력
+SELECT * FROM EMP
+WHERE SAL != 3000;
+
+SELECT * FROM EMP
+WHERE SAL <> 3000;
+
+SELECT * FROM EMP
+WHERE SAL ^= 3000;
+
+SELECT * FROM EMP
+WHERE NOT SAL = 3000;
+
+-- IN 연산자
+SELECT * FROM EMP
+WHERE JOB = 'MANAGER'
+OR JOB = 'SALESMAN';
+
+SELECT * FROM EMP
+WHERE JOB IN ('MANAGER', 'SALESMAN', 'CLERK');
+ 
+ 
+ --급여가 2000이상 3000이하
+ SELECT * FROM EMP
+ WHERE SAL >= 2000 AND SAL <= 3000;
+ --BETWEEN A AND B
+ SELECT * FROM EMP
+ WHERE SAL BETWEEN 2000 AND 3000;
+--------------------------------------------------
+using Oracle.ManagedDataAccess.Client;
+
+namespace OracleTest01
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //1.외부 프로그램 연결 모듈 받기
+            //2.연결 스크립트를 사용
+            string strConn = "Data Source=(DESCRIPTION=" +
+                "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)" +
+                "(HOST=localhost)(PORT=1521)))" +
+                "(CONNECT_DATA=(SERVER=DEDICATED)" +
+                "(SERVICE_NAME=xe)));" +
+                "User Id=SCOTT;Password=TIGER;";
+
+            //1.연결 객체 만들기
+            OracleConnection conn = new OracleConnection(strConn);
+
+            //2.연결 객체 만들기 --> Client
+            conn.Open();
+
+            //3.프로그래밍
+            OracleCommand cmd = new OracleCommand();
+            cmd.Connection = conn;
+
+            //cmd.CommandText = "Create Table PhoneBook" +
+            //    "(ID number(4) PRIMARY KEY, " +
+            //    "NAME varchar(20), " +
+            //    "HP varchar(20))";
+                
+            //cmd.ExecuteNonQuery();
+            //4.리소스 반환 및 종료
+            conn.Close();
+        }
+    }
+}
+------------------------------------------------------------------------
