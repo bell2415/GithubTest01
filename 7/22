@@ -79,3 +79,100 @@ CREATE TABLE TABLE_TABLE_PK(
     TEL VARCHAR2(20)
 );
 DESC TABLE_TABLE_PK;
+--------------------------------------------
+using Oracle.ManagedDataAccess.Client;
+using System.Net;
+using System.Xml.Linq;
+
+namespace ConsoleApp56
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string strConn = "Data Source=(DESCRIPTION=" +
+               "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)" +
+               "(HOST=localhost)(PORT=1521)))" +
+               "(CONNECT_DATA=(SERVER=DEDICATED)" +
+               "(SERVICE_NAME=xe)));" +
+               "User Id=SCOTT;Password=TIGER;";
+            //1.연결 객체 만들기 - Client
+            OracleConnection conn = new OracleConnection(strConn);
+
+            //2.데이터베이스 접속을 위한 연결
+            conn.Open();
+
+            //3.서버와 함께 신나게 놀기
+
+            //3.1 Query 명령객체 만들기
+            OracleCommand cmd = new OracleCommand();
+            cmd.Connection = conn; //연결객체와 연동
+                                   //3.2 명령하기, 테이블 생성하기
+
+            int n = 0;
+            do
+            {
+                Console.WriteLine("============================\r\n\r\n명함 관리 시스템\r\n\r\n============================\r\n\r\n0. 테이블 생성 초기화 (삭제 후 만들기)\r\n\r\n1. 명함 추가\r\n\r\n2. 명함 목록 보기\r\n\r\n3. 명함 수정\r\n\r\n4. 명함 삭제\r\n\r\n5. 명함 검색\r\n\r\n6. 종료\r\n\r\n============================");
+                Console.Write("선택: ");
+                n = int.Parse(Console.ReadLine());
+
+                switch (n)
+                {
+                    case 0:
+                        cmd.CommandText = "DROP TABLE BUSINESSCARDS";
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = "Create Table BusinessCards" +
+                                          "(CardID number PRIMARY KEY," +
+                                          "NAME varchar2(50) not null, " +
+                                          "PhoneNumber VARCHAR2(20) NOT NULL," +
+                                          "Email VARCHAR2(50)," +
+                                          "Company VARCHAR2(100)," +
+                                          "Address VARCHAR2(200))";
+                        cmd.ExecuteNonQuery();
+                        break;
+                    case 1:
+                        cmd.CommandText = "INSERT INTO BusinessCards (CardID, Name, PhoneNumber, Email, Company, Address)" +
+                                          "VALUES (SEQ_BUSINESSCARDS.NEXTVAL, :NAME, :PhoneNumber, :Email, :Company, :Address)";
+
+                        Console.WriteLine("[명함추가 기능]");
+                        Console.WriteLine("============================");
+                        Console.WriteLine("명함추가");
+                        Console.WriteLine("============================");
+                        Console.Write("이름: ");
+                        cmd.Parameters.Add(new OracleParameter("NAME", Console.ReadLine()));
+                        Console.Write("전화번호: ");
+                        cmd.Parameters.Add(new OracleParameter("PhoneNumber", Console.ReadLine()));
+                        Console.Write("이메일: ");
+                        cmd.Parameters.Add(new OracleParameter("Email", Console.ReadLine()));
+                        Console.Write("회사: ");
+                        cmd.Parameters.Add(new OracleParameter("Company", Console.ReadLine()));
+                        Console.Write("주소: ");
+                        cmd.Parameters.Add(new OracleParameter("Address", Console.ReadLine()));
+                        Console.WriteLine("============================");
+                        cmd.ExecuteNonQuery();
+                        break;
+                    case 2:
+                        cmd.CommandText = "SELECT * FROM BUSINESSCARDS";
+                        cmd.ExecuteNonQuery();
+                        break;
+                    case 3:
+                        break; 
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                }
+
+            } while (n != 6);
+
+
+            
+            //4. 리소스 반환 및 종료
+            conn.Close();
+
+        }
+    }
+}
