@@ -1,1 +1,638 @@
-1
+--PL/SQL
+--16-1
+SET SERVEROUTPUT ON; --실행 결과를 화면에 출력
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('hello, PL/SQL!');
+END;
+/
+
+--한줄 주석 사용하기
+
+DECLARE
+ V_EMPNO NUMBER(4) :=7788;
+ V_ENAME VARCHAR2(10);
+ BEGIN
+ V_ENAME := 'SCOTT';
+ DBMS_OUTPUT.PUT_LINE('V_ENAME : ' || V_EMPNO);
+ DBMS_OUTPUT.PUT_LINE('V_ENAME : ' || V_ENAME);
+ END;
+ /
+ 
+DECLARE
+ V_DEPTNO NUMBER(2);
+ V_DNAME VARCHAR2(20);
+ V_LOC VARCHAR2(20);
+ BEGIN
+ V_DEPTNO := 10;
+ V_DNAME := '홍길동';
+ V_LOC := '안동';
+ DBMS_OUTPUT.PUT_LINE('V_ENAME : ' || V_DEPTNO);
+ DBMS_OUTPUT.PUT_LINE('V_ENAME : ' || V_DNAME);
+ DBMS_OUTPUT.PUT_LINE('V_ENAME : ' || V_LOC);
+ END;
+ /
+ 
+DECLARE
+    V_TAX CONSTANT NUMBER(1) := 3;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('V_TEX : ' || V_TAX);
+END;
+/
+
+--PL/SQL 변수의 기본값을 설정할 수 있다.
+DECLARE
+    V_DEPTNO NUMBER(2) DEFAULT 10;
+BEGIN
+    V_DEPTNO := 50;
+    DBMS_OUTPUT.PUT_LINE(V_DEPTNO);
+END;
+/
+
+--변수에 NOT NULL을 설정하고 값을 대입한 후 출력
+DECLARE
+    V_DEPTNO NUMBER(2) NOT NULL := 20;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(V_DEPTNO);
+END;
+/
+
+--스칼라형 변수
+
+--참조형 변수
+--16-9 참조형의 변수에 값을 대입한 후 출력하기
+DECLARE
+    V_DEPTNO DEPT.DEPTNO%TYPE DEFAULT 50;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('V_DEPTNO : ' || V_DEPTNO);
+END;
+/
+
+SELECT * FROM DEPT;
+DESC DEPT;
+
+--%ROWTYPE
+DECLARE
+    V_DEPT_ROW DEPT%ROWTYPE;
+BEGIN
+    SELECT DEPTNO, DNAME, LOC INTO V_DEPT_ROW
+     FROM DEPT
+    WHERE DEPTNO = 40;
+        DBMS_OUTPUT.PUT_LINE('DEPTNO : ' || V_DEPT_ROW.DEPTNO);
+        DBMS_OUTPUT.PUT_LINE('DNAME : ' || V_DEPT_ROW.DNAME);
+        DBMS_OUTPUT.PUT_LINE('LOC : ' || V_DEPT_ROW.LOC);
+END;
+/
+
+DECLARE
+    V_NUMBER NUMBER DEFAULT 13;
+BEGIN
+    IF MOD(V_NUMBER, 2) = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('홀수 입니다');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('짝수 입니다');
+    END IF;
+END;
+/
+
+--16-14
+--16-15 CASE문 (switch case)
+DECLARE
+    V_SCORE NUMBER DEFAULT 87;
+BEGIN
+    CASE TRUNC(V_SCORE/10)
+        WHEN 10 THEN DBMS_OUTPUT.PUT_LINE('A학점');
+        WHEN 8 THEN DBMS_OUTPUT.PUT_LINE('B학점');
+        ELSE DBMS_OUTPUT.PUT_LINE('A학점');
+    END CASE;
+END;
+/
+
+--기본 LOOP 사용하기
+DECLARE
+    V_NUM NUMBER := 0;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(V_NUM);
+        V_NUM := v_NUM + 1;
+        EXIT WHEN V_NUM > 4;
+    END LOOP;
+END;
+/
+
+--WHILE문 사용하기
+DECLARE
+    V_NUM NUMBER := 0;
+BEGIN
+    WHILE v_NUM < 4 LOOP
+        DBMS_OUTPUT.PUT_LINE(V_NUM);
+        V_NUM := v_NUM +1;
+    END LOOP;
+END;
+/
+
+DECLARE
+BEGIN
+ FOR i IN 0..4 LOOP
+    DBMS_OUTPUT.PUT_LINE(i);
+ END LOOP;
+END;
+/ 
+
+--WHILE
+DECLARE
+    i NUMBER DEFAULT 0;
+BEGIN
+    WHILE i < 10 LOOP
+        IF MOD(i, 2) = 1 THEN DBMS_OUTPUT.PUT_LINE(i);
+        END IF;
+        i := i + 1;
+    END LOOP;
+END;
+/
+
+--FOR
+BEGIN
+ FOR i IN 1..10 LOOP
+    IF MOD(i, 2) = 1 THEN DBMS_OUTPUT.PUT_LINE(i);
+    END IF;
+ END LOOP;
+END;
+/
+
+DECLARE
+    i NUMBER DEFAULT 1;
+BEGIN
+    WHILE i < 10 LOOP
+        IF MOD(i, 3) = 0 THEN DBMS_OUTPUT.PUT_LINE(i);
+        END IF;
+        i := i + 1;
+    END LOOP;
+END;
+/
+
+BEGIN
+ FOR i IN REVERSE 1..10 LOOP
+    IF MOD(i, 3) = 0 THEN 
+        DBMS_OUTPUT.PUT_LINE('출력 : ' || i);
+    END IF;
+ END LOOP;
+END;
+/
+
+DECLARE
+BEGIN
+ FOR i IN REVERSE 0..4 LOOP
+    DBMS_OUTPUT.PUT_LINE('현재 i의 값 : ' || i);
+ END LOOP;
+END;
+/  
+
+--16-21 for loop 안에 continue
+BEGIN
+    FOR I IN 0..4 LOOP
+        CONTINUE WHEN MOD(i, 2) = 1;
+        DBMS_OUTPUT.PUT_LINE(i);
+    END LOOP;
+END;
+/
+
+--17-1 레코드를 정의해서 사용하기
+DECLARE
+    TYPE REC_DEPT IS RECORD(
+        deptno NUMBER(2) NOT NULL := 99,
+        dname DEPT.DNAME%TYPE,
+        loc   DEPT.LOC%TYPE
+    );
+    dept_rec REC_DEPT;
+BEGIN
+    dept_rec.deptno := 99;
+    dept_rec.dname := 'DATABASE';
+    dept_rec.loc := 'SEOUL';
+    DBMS_OUTPUT.PUT_LINE(dept_rec.deptno);
+    DBMS_OUTPUT.PUT_LINE(dept_rec.dname);
+    DBMS_OUTPUT.PUT_LINE(dept_rec.loc);
+END;
+/
+
+--17-2 DEPT_RECORD
+DECLARE
+    TYPE REC_DEPT IS RECORD(
+        deptno NUMBER(2) NOT NULL := 99,
+        dname DEPT.DNAME%TYPE,
+        loc   DEPT.LOC%TYPE
+    );
+    dept_rec REC_DEPT;
+BEGIN
+    dept_rec.deptno := 99;
+    dept_rec.dname := 'DATABASE';
+    dept_rec.loc := 'SEOUL';
+    
+    INSERT INTO DEPT_RECORD
+    VALUES dept_rec;
+END;
+/
+
+CREATE TABLE DEPT_RECORD
+ AS SELECT * FROM DEPT;
+ 
+SELECT * FROM DEPT_RECORD;
+COMMIT;
+
+--17-2 
+DECLARE
+    TYPE DEPTREC IS RECORD(
+        deptno NUMBER(2) NOT NULL := 10,
+        dname DEPT.DNAME%TYPE,
+        loc   DEPT.LOC%TYPE
+    );
+    deptrecord DEPTREC; --객체선언
+BEGIN
+    deptrecord.deptno := 88;
+    deptrecord.dname := '연구';
+    deptrecord.loc := '구미';
+    
+    INSERT INTO DEPT_RECORD
+    VALUES deptrecord;
+END;
+/
+
+DECLARE
+    TYPE DEPTREC IS RECORD(
+        deptno NUMBER(2) NOT NULL := 0,
+        dname DEPT.DNAME%TYPE,
+        loc   DEPT.LOC%TYPE
+    );
+    deptrecord DEPTREC; --객체선언
+BEGIN
+    deptrecord.deptno := 50;
+    deptrecord.dname := 'DB';
+    deptrecord.loc := 'ANDONG';
+    
+    UPDATE DEPT_RECORD
+    SET ROW = deptrecord
+    WHERE DEPTNO = 99;
+END;
+/
+
+
+--사용자 사전
+SELECT * FROM DICT;
+SELECT * FROM DICTIONARY;
+
+--사용자 사전(USER_%)
+SELECT TABLE_NAME FROM USER_TABLES
+ORDER BY TABLE_NAME;
+
+--데이터 사전 ALL_%
+SELECT OWNER, TABLE_NAME FROM ALL_TABLES;
+
+--DBA_%
+SELECT * FROM DBA_TABLES;
+
+SELECT * FROM DBA_USERS;
+
+--인덱스 확인
+SELECT * FROM USER_INDEXES;
+
+SELECT * FROM USER_IND_COLUMNS;
+
+--INDEX 만들기
+CREATE INDEX IDX_EMP_SAL ON EMP(SAL);
+
+SELECT SAL FROM EMP;
+
+--INDEX 삭제
+DROP INDEX IDX_EMP_SAL;
+
+--VIEW
+SELECT * FROM VW_EMP20;
+
+SELECT * FROM (SELECT EMPNO, ENAME, SAL FROM EMP WHERE DEPTNO = 20);
+
+--SCOTT 계정에 VIEW를 만드는 권한을 줍니다.!!!
+GRANT CREATE VIEW TO SCOTT;
+
+--뷰 만들기
+CREATE VIEW VW_EMP20
+ AS (SELECT EMPNO, ENAME, JOB, DEPTNO
+     FROM EMP
+     WHERE DEPTNO = 20);
+
+--뷰 확인
+SELECT * FROM USER_VIEWS;
+
+--뷰 삭제
+DROP VIEW Vw_EMP20;
+
+--동의어 (synonym)
+GRANT CREATE SYNONYM TO SCOTT;
+
+GRANT CREATE PUBLIC SYNONYM TO SCOTT;
+
+--동의어
+CREATE SYNONYM E FOR EMP;
+
+SELECT * FROM E;
+DROP SYNONYM E;
+
+--18-1 단일행 데이터 저장하기
+DECLARE
+    V_DEPT_ROW      DEPT%ROWTYPE;
+BEGIN
+    SELECT DEPTNO, DNAME, LOC INTO V_DEPT_ROW FROM DEPT
+    WHERE DEPTNO = 40;
+    
+    DBMS_OUTPUT.PUT_LINE(V_DEPT_ROW.DEPTNO);
+    DBMS_OUTPUT.PUT_LINE(V_DEPT_ROW.DNAME);
+    DBMS_OUTPUT.PUT_LINE(V_DEPT_ROW.LOC);
+END;
+/
+
+--18-2 단일행 데이터 저장하는 커서 사용
+DECLARE
+    V_DEPT_ROW DEPT%ROWTYPE;
+    --명시적 커서 선언
+    CURSOR c1 IS
+        SELECT DEPTNO, DNAME, LOC FROM DEPT WHERE DEPTNO = 40;
+BEGIN
+    --커서사용? 커서열기 OPEN
+    OPEN c1;
+    --데이터 가공
+    FETCH c1 INTO V_DEPT_ROW;
+    
+    DBMS_OUTPUT.PUT_LINE(V_DEPT_ROW.DEPTNO);
+    DBMS_OUTPUT.PUT_LINE(V_DEPT_ROW.DNAME);
+    DBMS_OUTPUT.PUT_LINE(V_DEPT_ROW.LOC);
+    
+    --커서닫기 리소스 반환
+    CLOSE c1;
+END;
+/
+
+--18-3
+DECLARE
+    V_DEPT_ROW DEPT%ROWTYPE;
+    --명시적 커서 선언
+    CURSOR c1 IS
+        SELECT DEPTNO, DNAME, LOC FROM DEPT;
+BEGIN
+    OPEN c1;
+    LOOP
+        FETCH c1 INTO V_DEPT_ROW;
+        --커서의 모든 행을 읽기위해 속성 지정
+        EXIT WHEN c1%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('부서번호 : ' || V_DEPT_ROW.DEPTNO ||
+                             '부서이름 : ' || V_DEPT_ROW.DNAME ||    
+                             '부서위치 : ' || V_DEPT_ROW.LOC);
+
+    END LOOP;
+    --커서닫기 리소스 반환
+    CLOSE c1;
+END;
+/
+
+DECLARE
+    v_wrong NUMBER;
+BEGIN
+    SELECT DNAME INTO v_wrong 
+        FROM DEPT
+    WHERE DEPTNO = 10;
+EXCEPTION
+    WHEN VALUE_ERROR THEN
+        DBMS_OUTPUT.PUT_LINE('에러발생!');
+END;
+/
+
+DECLARE
+  -- 사용자 정의 예외 선언
+  e_high_salary EXCEPTION;
+  -- 급여 한도 선언
+  salary_limit CONSTANT NUMBER := 5000;
+  -- 직원의 급여를 저장할 변수
+  v_salary EMP.SAL%TYPE;
+  v_ename EMP.ENAME%TYPE;
+BEGIN
+  -- 특정 직원의 급여 조회 (예: EMPNO가 7839인 경우)
+  SELECT SAL, ENAME INTO v_salary, v_ename
+  FROM EMP
+  WHERE EMPNO = 7839;
+
+  -- 조건: 급여가 5000 이상일 때 예외 발생
+  IF v_salary >= salary_limit THEN
+    RAISE e_high_salary; -- 예외 발생
+  END IF;
+
+  -- 예외가 발생하지 않았을 경우의 처리
+  DBMS_OUTPUT.PUT_LINE(v_ename || '의 급여는 ' || v_salary || '입니다.');
+EXCEPTION
+  -- 사용자 정의 예외 처리
+  WHEN e_high_salary THEN
+    DBMS_OUTPUT.PUT_LINE(v_ename || '의 급여는 ' || v_salary || '로, 허용된 한도를 초과했습니다.');
+  -- 다른 예외 처리 (옵션)
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('다른 오류가 발생했습니다: ' || SQLERRM);
+END;
+/
+
+--19-1 저장 프로시저
+CREATE OR REPLACE PROCEDURE pro_noparam
+IS
+    V_EMPNO NUMBER(4) := 7788;
+    V_ENAME VARCHAR(10);
+BEGIN
+    V_ENAME := 'SCOTT';
+    DBMS_OUTPUT.PUT_LINE(V_EMPNO);
+    DBMS_OUTPUT.PUT_LINE(V_ENAME);
+END;
+/
+
+EXECUTE pro_noparam;
+
+--익먕 프로시저 실행
+
+--19-4 user_source 프로시저 확인
+SELECT * FROM USER_SOURCE
+WHERE NAME = 'PRO_NOPARAM';
+
+--19-7 프로시저에 파라미터 지정하기
+CREATE OR REPLACE PROCEDURE pro_param_in
+(
+    param1 IN NUMBER,
+    param2 NUMBER,
+    param3 NUMBER := 3,
+    param4 NUMBER DEFAULT 4
+)
+IS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(param1);
+    DBMS_OUTPUT.PUT_LINE(param2);
+    DBMS_OUTPUT.PUT_LINE(param3);
+    DBMS_OUTPUT.PUT_LINE(param4);
+END;
+/
+
+EXECUTE pro_param_in(1,2,9,8);
+EXECUTE pro_param_in(1,2);
+
+EXECUTE pro_param_in(10, 20);
+
+EXECUTE pro_param_in(param1 => 10, param2 => 20);
+
+--19-12
+CREATE OR REPLACE PROCEDURE pro_param_out
+(
+    in_empno IN EMP.EMPNO%TYPE,
+    out_ename OUT EMP.ENAME%TYPE,
+    out_sal OUT EMP.SAL%TYPE
+)
+IS
+BEGIN
+    SELECT ENAME, SAL INTO out_ename, out_sal FROM EMP
+    WHERE EMPNO = in_empno;
+END pro_param_out;
+/
+
+--19-13
+DECLARE
+    v_ename EMP.ENAME%TYPE;
+    v_sal EMP.SAL%TYPE;
+BEGIN
+    pro_param_out(7839,v_ename,v_sal);
+    DBMS_OUTPUT.PUT_LINE(v_ename);
+    DBMS_OUTPUT.PUT_LINE(v_sal);
+END;
+
+--19-16 프로시저 오류 정보
+CREATE OR REPLACE PROCEDURE pro_err
+IS
+    err_no      NUMBER;
+BEGIN
+    err_no = 100;
+    DBMS_OUTPUT.PUT_LINE(err_no);
+END pro_err;
+/
+
+SHOW ERRORS;
+--ERROR를 USER_%에서 확인하기
+SELECT * FROM USER_ERRORS
+WHERE NAME = 'PRO_ERR';
+
+--19-19 함수
+CREATE OR REPLACE FUNCTION func_aftertax(
+    sal IN NUMBER
+)
+RETURN NUMBER
+IS
+    tax NUMBER := 0.05;
+BEGIN
+    RETURN(ROUND(sal - (sal * tax)));
+END func_aftertax;
+/
+
+--함수 사용
+DECLARE
+    aftertax NUMBER;
+BEGIN
+    aftertax := func_aftertax(3000);
+    DBMS_OUTPUT.PUT_LINE(aftertax);
+END;
+/
+
+SELECT func_aftertax(3000) FROM DUAL;
+
+SELECT EMPNO, ENAME, SAL, func_aftertax(SAL) FROM EMP;
+
+--19-24
+CREATE OR REPLACE PACKAGE pkg_example
+IS
+    spec_no NUMBER := 10;
+    FUNCTION func_aftertax(sal NUMBER) RETURN NUMBER;
+    PROCEDURE pro_emp(in_empno IN EMP.EMPNO%TYPE);
+    PROCEDURE pro_dept(in_deptno IN DEPT.DEPTNO%TYPE);
+END;
+/
+
+--사용
+SELECT TEXT FROM USER_SOURCE
+WHERE TYPE = 'PACKAGE';
+
+DESC pkg_example;
+
+--Trigger를 사용할 테이블
+CREATE TABLE EMP_TRG AS SELECT * FROM EMP;
+
+SELECT * FROM EMP_TRG;
+
+DROP TRIGGER trg_emp_nodml_weekend;
+--19-32 주말 작업 불가 트리거
+CREATE OR REPLACE TRIGGER trg_emp_nodml_weekend
+BEFORE
+INSERT OR UPDATE OR DELETE ON EMP_TRG
+BEGIN
+    IF TO_CHAR(sysdate, 'DY') IN ('토', '일') THEN
+        IF INSERTING THEN
+            raise_application_error(-2000, '주말 사원정보 추가 불가');
+        ELSIF UPDATING THEN
+            raise_application_error(-2001, '주말 사원정보 수정 불가');
+        ELSIF DELETING THEN
+            raise_application_error(-2002, '주말 사원정보 삭제 불가');
+        ELSE
+            raise_application_error(-2003, '주말 사원정보 변경 불가');
+        END IF;
+    END IF;
+END;
+/
+
+SELECT * FROM EMP_TRG WHERE ENAME = 'KING';
+--평일 날짜 갱신
+UPDATE emp_trg SET sal = 5000
+WHERE empno = 7839;
+--주말 날짜 갱신
+
+--19-35 로그 테이블 
+CREATE TABLE EMP_TRG_LOG(
+    TABLENAME VARCHAR2(10),
+    DML_TYPE  VARCHAR2(10),
+    EMPNO NUMBER(4),
+    USER_NAME VARCHAR2(30),
+    CHANGE_DATE DATE
+);
+
+--19-36
+CREATE OR REPLACE TRIGGER trg_emp_log
+AFTER
+INSERT OR UPDATE OR DELETE ON EMP_TRG
+FOR EACH ROW
+
+BEGIN
+    IF INSERTING THEN
+        INSERT INTO emp_trg_log
+        VALUES('EMP_TRG', 'INSERT', :new.empno, 
+                SYS_CONTEXT('USERENV', 'SESSION_USER'),sysdate);
+    ELSIF UPDATING THEN
+        INSERT INTO emp_trg_log
+        VALUES('EMP_TRG', 'UPDATE', :new.empno, 
+                SYS_CONTEXT('USERENV', 'SESSION_USER'),sysdate);
+    ELSIF DELETIING THEN
+        INSERT INTO emp_trg_log
+        VALUES('EMP_TRG', 'DELETE', :new.empno, 
+                SYS_CONTEXT('USERENV', 'SESSION_USER'),sysdate);
+    END IF;
+END;
+/
+
+--19-37 DATA INSERT
+INSERT INTO EMP_TRG
+ VALUES(9999, 'TestEmp', 'CLERK', 7788, TO_DATE('2010-03-03', 'YYYY-MM-DD'), 1200, null, 20);
+ 
+select * from emp_trg order by empno by empno desc;
+commit;
+
+--emp_trg_log 확인
+SELECT * FROM EMP_TRG ORDER BY EMPNO DESC;
+SELECT * FROM EMP_TRG_LOG;
+
+--
+UPDATE EMP_TRG
+SET SAL = 1300
+WHERE MGR = 7788;
