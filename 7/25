@@ -1,1 +1,601 @@
+using System.Collections.Specialized;
+using System.Numerics;
 
+namespace ConsoleApp60
+{
+    internal class Program
+    {
+        public int[] InputScore(int[] arr)
+        {
+            int total = 0;
+            for (int i = 0; i < 3; i++)
+            {
+                arr[i] = int.Parse(Console.ReadLine());
+                total += arr[i];
+            }
+            arr[3] = total;
+            return arr;
+        }
+        public void OutputScore(int[] arr)
+        {
+            Console.WriteLine($"총점 : {arr[3]}");
+            Console.WriteLine($"평균 : {arr[3] / 3.0:F2}");
+        }
+        static void Main(string[] args)
+        {
+            int[] score = new int[4];
+            Program program = new Program();
+
+            program.InputScore(score);
+            program.OutputScore(score);
+
+        }
+    }
+}
+------------------------------------------------------------------
+using System.Collections;
+
+namespace ConsoleApp61
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+           List<int> list = new List<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+
+            foreach(int i in list)
+            {
+                Console.WriteLine(i);
+            }
+
+            ArrayList alist = new ArrayList();
+            alist.Add('A');
+            alist.Add('B');
+            alist.Add('C');
+
+            alist.Insert(2, 'E');
+            alist.RemoveAt(0);
+            foreach (char ch in alist)
+            {
+                Console.WriteLine(ch);
+            }
+
+            ArrayList blist = new ArrayList();
+            blist.Add(1);
+            blist.Add('Z');
+            Console.WriteLine((int)blist[0]);
+
+            Console.WriteLine((char)blist[1]);
+        }
+    }
+}
+----------------------------------------------------
+using System.Collections;
+
+namespace ConsoleApp64
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Hashtable ht = new Hashtable();
+
+            ht["하나"] = "One";
+            ht["둘"] = "Two";
+            ht["셋"] = "Three";
+            ht["넷"] = "Four";
+            Console.WriteLine(ht["하나"]);
+            Console.WriteLine(ht["둘"]);
+            Console.WriteLine(ht["셋"]);
+            Console.WriteLine(ht["넷"]);
+        }
+    }
+}
+-------------------------------------------------------
+namespace ConsoleApp65
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = 5;
+            int b = 0;
+            try
+            {
+                int result = a / b;
+                Console.WriteLine(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("0으로 나누는 예외가 발생하였습니다");
+            }
+        }
+    }
+}
+-----------------------------------------------------
+namespace ConsoleApp65
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = 5;
+            int b = 0;
+            try
+            {
+                int result = a / b;
+                Console.WriteLine(result);
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("0으로 나누는 예외가 발생하였습니다");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("예외가 발생하였습니다");
+            }
+            finally
+            {
+                Console.WriteLine("무조건 실행되는 구문");
+            }
+        }
+    }
+}
+------------------------------------------------------------------------
+namespace ConsoleApp66
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] arr = {1, 2, 3};
+
+            try
+            {
+                int a = 5;
+                int b = 0;
+                int result = a / b;
+                throw new IndexOutOfRangeException();
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.WriteLine(arr[i]);
+                }
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Console.WriteLine("배열의 범위를 벗어났습니다.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("부모 예외클래스에 잡혔습니다.");
+            }
+            finally
+            {
+                Console.WriteLine("finally 무조건 실행됩니다.");
+            }
+            Console.WriteLine("종료");
+        }
+    }
+}
+----------------------------------------------------------------
+namespace ConsoleApp67
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = "c:\\Temp\\abc.txt";
+            string comtent = "안녕하세요 c#";
+            //쓰기
+            File.WriteAllText(path, comtent);
+
+            Console.WriteLine("파일 작성 성공!!");
+
+            //읽기
+            string words = File.ReadAllText(path);
+            Console.WriteLine(words);
+        }
+    }
+}
+------------------------------------------------------------
+namespace ConsoleApp68
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Temp\hello.txt";
+            string content = "안녕하세요. 인사파일 입니다.";
+
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                writer.WriteLine(content);
+                //write.Close();
+            }
+            Console.WriteLine("현재 프로그래이 종료합니다.");
+        }
+    }
+}
+--------------------------------------------------------------------
+namespace ConsoleApp69
+{
+    internal class Program
+    {
+        static string[] solution(string[] todo_list, bool[] finished)
+        {
+            List<string> newWorkList = new List<string>();
+
+            for (int i = 0; i < todo_list.Length; i++)
+            { 
+                if (!finished[i])
+                    newWorkList.Add(todo_list[i]);
+            }
+            return newWorkList.ToArray(); //List를 배열로 변경하는 메소드
+        }
+            static void Main(string[] args)
+        {
+            string[] todo_list = { "DB공부", "운동하기", "밥먹기", "영화보기" };
+            bool[] finished = { true, false, true, false };
+
+            string[] list = solution(todo_list, finished);
+
+            solution(todo_list, finished);
+
+            foreach (string s in list)
+            {
+                Console.WriteLine(s);   
+            }
+            //"practiceguitar", "studyfraph"
+        }
+    }
+}
+---------------------------------------------------------------------
+using System.Collections.Generic;
+
+namespace ConsoleApp70
+{
+    internal class Program
+    {
+        static void solution(int a)
+        { 
+            
+        }
+        static void Main(int[] args)
+        {
+            int a = 5;
+            int[] names = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 };
+
+            if (a == 5)
+            {
+                for (int i = 0; i < names.Length; i++) 
+                {
+                    Console.WriteLine(names[i]);
+                    i = i + 4;
+                }
+            }
+
+        }
+    }
+}
+----------------------------------------------------------------------------------
+namespace ConsoleApp74
+{
+    class Profile
+    {
+        private string name;
+        private int height;
+        public string Name { get; set; }
+        public int Height { get; set; }
+
+        //생성자
+        public Profile() { }
+        public Profile(string name, int height)
+        {
+            Name = name;
+            Height = height;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Profile[] arrProfiles =
+            {
+                new Profile() { Name = "정우성", Height = 186},
+                new Profile() { Name = "김태희", Height = 186},
+                new Profile() { Name = "고현정", Height = 186},
+                new Profile("이문세", 178),
+                new Profile("하동훈", 171)
+            };
+            List<Profile> profiles = new List<Profile>();
+
+            foreach (Profile profile in arrProfiles)
+            {
+                //키가 175 이하인 사람은??
+                if (profile.Height <= 175)
+                {
+                    profiles.Add(profile);
+                }
+            }
+
+
+            //LINQ
+            var myProfiles= from profile in arrProfiles
+                            where profile.Height <=175
+                            orderby profile.Height
+                            select profile;
+
+            foreach (Profile profile in profiles)
+            {
+                Console.WriteLine("{0}, {1}", profile.Name, profile.Height);
+            }
+        }
+    }
+}
+-------------------------------------------------------------------------------------
+namespace ConsoleApp75
+{
+
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            char ch = 'A';
+            char[] alphabets = new char[26];
+
+            for (int i = 0; i < alphabets.Length; i++)
+                alphabets[i] = ch++;
+
+            //Linq
+            var result = from c in alphabets
+                         orderby c descending
+                         select c;
+
+            foreach (char e in result)
+            {
+                Console.Write(e + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+--------------------------------------------------------
+namespace ConsoleApp76
+{
+    class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string Address { get; set; }
+
+
+        public override string ToString()
+        {
+            return string.Format("{0}: {1} in {2}", Name, Age, Address);
+        }
+    }
+
+    class MainLanguage
+    {
+        public string Name { get; set; }
+        public string Language { get; set; }
+    }
+        internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Person> people = new List<Person>
+            {
+                new Person {Name = "Tom", Age = 63, Address = "Korea"},
+                new Person {Name = "Winnie", Age = 40, Address = "Tibet"},
+                new Person {Name = "Anders", Age = 47, Address = "Sudan"},
+                new Person {Name = "Hans", Age = 25, Address = "Tibet"},
+                new Person {Name = "Eureka", Age = 32, Address = "Sudan"},
+                new Person {Name = "Hawk", Age = 15, Address = "Korea"},
+            };
+
+            List<MainLanguage> languages = new List<MainLanguage>
+            {
+                new MainLanguage {Name = "Anders", Language = "Delphi"},
+                new MainLanguage {Name = "Anders", Language = "C#"},
+                new MainLanguage {Name = "Tom", Language = "Borland C++"},
+                new MainLanguage {Name = "Hans", Language = "Visual C++"},
+                new MainLanguage {Name = "Winnie", Language = "R"},
+            };
+
+            //Linq
+            //var all = from person in people
+            //          select person;
+            //foreach (var item in all)
+            //{
+            //    Console.WriteLine($"{item.Name}: {item.Age} in {item.Address}");
+            //}
+            //Console.WriteLine(string.Join(Environment.NewLine, all));
+
+            //var nameList = from person in people
+            //               select person.Name;
+
+            //foreach (var item in nameList)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            //var nameList = people.Select((elem) => elem.Name);  
+
+            //foreach(var name in nameList)
+            //{
+            //    Console.WriteLine(name);
+            //}
+
+            //var dataList = from person in people
+            //               select new
+            //               {
+            //                   Name = person.Name,
+            //                   Year = DateTime.Now.AddYears(-person.Age).Year
+            //               };
+            //foreach(var item in dataList)
+            //{
+            //    Console.WriteLine($"{item.Name} - {item.Year}");
+            //}
+
+            //group by, join
+            var ageOver30 = from person in people
+                            where person.Age > 30
+                            select person;
+
+            var addGroup = from person in people
+                           group person by person.Address;
+
+            foreach(var itemGroup in addGroup)
+            {
+                Console.WriteLine($"[itemGroup.Key]");
+                foreach(var item in itemGroup)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
+------------------------------------------------------------
+namespace ConsoleApp77
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numbers = { 1, 3, 5, 7, 9, 11, 13, 15 };
+
+            int even = numbers.LastOrDefault(n => n % 2 == 0);
+
+            if (even == 0)
+                Console.WriteLine("짝수가 없다");
+            else
+                Console.WriteLine(even);
+        }
+    }
+}
+------------------------------------------------------------------
+using System.Globalization;
+
+namespace ConsoleApp78
+{
+    class Calculator
+    {
+        public int Plus(int a, int b)
+        {
+            return a + b;
+        }
+    }
+    internal class Program
+    {
+        delegate int Calculate(int a, int b);
+        static void Main(string[] args)
+        {
+            Calculator c = new Calculator();
+            Calculate calc = c.Plus;
+
+            Console.WriteLine(calc(10, 20));
+        }
+    }
+}
+-----------------------------------------------
+using System.Globalization;
+
+namespace ConsoleApp78
+{
+    internal class Program
+    {
+        delegate int Calculate(int a, int b);
+        static void Main(string[] args)
+        {
+            Calculate calc = (int a,  int b) => a + b; //Lamda;
+
+            Console.WriteLine(calc(10, 20));
+        }
+    }
+}
+-------------------------------------------
+using System.Globalization;
+
+namespace ConsoleApp78
+{
+    internal class Program
+    {
+        delegate int Calculate(int a, int b);
+        static void Main(string[] args)
+        {
+            //Calculate calc = (int a, int b) => a + b; //Lamda;
+
+            Calculate calc = delegate (int a, int b)
+                            { 
+                                return a + b; 
+                            };
+            Console.WriteLine(calc(100,200));
+        }
+    }
+}
+-----------------------------------------------------
+namespace ConsoleApp79
+{
+    internal class Program
+    {
+        delegate int? MyDivide(int a, int b);
+        static void Main(string[] args)
+        {
+            //Thread thread = new Thread(
+            //    (obj) => Console.WriteLine("~~~~~")
+            //);
+            MyDivide myFunc = (a, b) =>
+            {
+                if (b == 0)
+                    return null;
+                return a / b;
+            };
+        }
+    }
+}
+-------------------------------------------------------
+namespace ConsoleApp80
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Action<string> logOut = (txt) =>
+            {
+                Console.WriteLine(DateTime.Now + ": " + txt);
+            };
+
+            logOut("This is my world");
+        }
+    }
+}
+----------------------------------------------------------
+namespace ConsoleApp81
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Action act1 = () => Console.WriteLine("Action()");
+            act1 ();
+
+            int result = 0;
+            Action<int> act2 = (x) => result = x * x;
+            act2(3);
+            Console.WriteLine(result);
+
+            Action<double, double> act3 = (x, y) =>
+            {
+                double pi = x / y;
+                Console.WriteLine(pi);
+            };
+            act3(22.0, 7.0);
+        }
+    }
+}
