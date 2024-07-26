@@ -1,1 +1,475 @@
+using System.Diagnostics.Tracing;
 
+namespace ConsoleApp82
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> arr = new List<int>();
+            List<int> oddList = new List<int>();
+            List<int> eventList = new List<int>();
+
+            for (int i = 1; i <= 100; i++)
+            {
+                arr.Add(i);
+            }
+
+            foreach (int i in arr)
+            {
+                if (i % 2 != 0)
+                    oddList.Add(i);
+                else
+                    eventList.Add(i);
+            }
+
+            foreach(int i in oddList)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
+
+            foreach (int i in eventList)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+---------------------------------------------------------------
+namespace ConsoleApp83
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> list1 = new List<int> { 1, 2, 2, 3, 4 };
+            List<int> list2 = new List<int> { 2, 3, 5, 6 };
+            IEnumerable<int> intersection = list1.Intersect(list2);
+
+            Console.WriteLine("교집합:");
+            foreach (int number in intersection)
+            {
+                Console.WriteLine(number);
+            }
+        }
+    }
+}
+-----------------------------------------------------------------
+File : 파일의 생성, 복사, 삭제, 이동 조회 처리
+
+FileInfo : File클래스와 동일하지만 정적 메소드가 아닌 인스턴스 메소드 제공
+
+Directory : 디렉터리 생성, 삭제, 이동, 복사 등 처리
+
+DirectoryInfo : Directory 클래스와 기능은 동일하나 정적 메소드가 아닌 인스턴스 메소드 제공
+----------------------------------------------
+
+
+namespace ConsoleApp84
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"c:\Temp\abc.txt";
+            string content = "Hello World";
+
+            File.WriteAllText(path, content);
+            byte[] bytes = new byte[3] { 1, 2, 3 };
+            File.WriteAllByText(path, content);
+
+            string str = File.ReadAllText(path);
+            Console.WriteLine(str);
+
+            //FileInfo fileInfo = new FileInfo(path);
+
+            //using (StreamWriter sw = fileInfo.CreateText())
+            //{
+            //    sw.WriteLine("Hellow");
+            //    sw.WriteLine("And");
+            //    sw.WriteLine("Welcome");
+            //}
+        }
+    }
+}
+----------------------------------------------------------------
+namespace ConsoleApp85
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Temp\ccc.txt";
+
+            FileInfo fi = new FileInfo(path);
+            //쓰기
+            using (StreamWriter sw = fi.CreateText())
+            {
+                sw.WriteLine("안녕하세요");
+            }
+
+            //읽기
+            using (StreamReader sr = fi.OpenText())
+            {
+                var s = "";
+                while( (s = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(s);
+                }
+            }
+        }
+    }
+}
+------------------------------------------------------------------------------------
+namespace ConsoleApp86
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Temp\result1.txt";
+
+            FileInfo fi = new FileInfo(path);
+
+            List<int> list = new List<int>();
+            for (int i = 1; i <= 100; i++)
+            {
+                if (i % 5 == 0)
+                    list.Add(i);
+            }
+
+            using (StreamWriter sw = fi.CreateText())
+            {
+                foreach (int number in list)
+                {
+                    sw.WriteLine(number);
+                }
+            }
+            using (StreamReader sr = fi.OpenText())
+            {
+                var s = "";
+                while ((s = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(s);
+                }
+            }
+        }
+    }
+}
+----------------------------------------------------
+using System.Text;
+
+namespace ConsoleApp86
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Temp\result1.txt";
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 1; i <= 100; i++)
+            {
+                if (i % 5 == 0)
+                    sb.Append(i.ToString() + " ");
+            }
+            File.WriteAllText(path, sb.ToString());
+
+
+
+            
+        }
+    }
+}
+------------------------------------------------
+
+namespace ConsoleApp86
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Temp\newjeans.png";
+            string copyPic = @"C:\Temp\CopyNewjeans.png";
+
+            byte[] pictureBytes = File.ReadAllBytes(path);
+
+
+            File.WriteAllBytes(copyPic, pictureBytes);
+
+
+
+            
+        }
+    }
+}
+------------------------------------------------------
+using System.Text;
+
+namespace ConsoleApp88
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Temp\test.log";
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+                sw.WriteLine("Hello World");
+                sw.WriteLine("Anderson");
+                sw.WriteLine("32000");
+            }
+        }
+    }
+}
+----------------------------------------
+namespace ConsoleApp89
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            long someValue = 0x123456789ABCDEF0;
+            Console.WriteLine($"{someValue :X16}");
+
+            string path = @"C:\Temp\a.dat";
+            Stream outStream = new FileStream(path, FileMode.Create);
+            byte[] wBytes = BitConverter.GetBytes(someValue);
+
+
+            //화면에 byte 출력??
+            foreach (byte b in wBytes)
+            {
+                Console.Write($"{b:X16} ");
+            }
+            Console.WriteLine();
+
+            outStream.Write(wBytes, 0, wBytes.Length);
+            outStream.Close();
+
+            //읽기 --> binary ==> Text 화면에 출력
+
+            Stream inStream = new FileStream(path, FileMode.Open);
+            byte[] rbytes = new byte[8];
+
+            int i = 0;
+            while (inStream.Position < inStream.Length)
+            {
+                rbytes[i++] = (byte)inStream.ReadByte();
+            }
+            Console.WriteLine() ;
+            long readValue = BitConverter.ToInt64(rbytes, 0);
+            Console.WriteLine($"{readValue:X16}");
+        }
+    }
+}
+--------------------------------------------------------------------------
+using System.Text;
+
+namespace ConsoleApp88
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string src = args[0];
+            string dst = args[1];
+
+            try
+            {
+                File.Copy(src, dst, true);
+                Console.WriteLine("복사성공");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+}
+-----------------------------------------------
+namespace ConsoleApp91
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Thread t1 = new Thread(threadFunc1);
+            Thread t2 = new Thread(threadFunc2);
+            Thread t3 = new Thread(threadFunc3);
+
+            t1.Start();
+            t2.Start();
+            t3.Start();
+
+        }
+        static void threadFunc1()
+        {
+            for (int i = 1; i < 100; i++)
+                Console.WriteLine(i);
+        }
+        static void threadFunc2()
+        {
+            char c1 = 'A', c2 = 'a';
+            for (int i = 0; i < 26; i++)
+                Console.Write((char)c1++);
+            for (int j = 1; j < 26; j++)
+                Console.Write((char)c2++);
+        }
+        static void threadFunc3()
+        {
+            for (int i = 200; i > 100; i--)
+                Console.Write(i);
+        }
+    }
+}
+-----------------------------
+namespace ConsoleApp92
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Thread t = new Thread(threadFunc);
+            t.IsBackground = true; //Main 종료시 바로 종료됨
+
+            t.Start();
+
+            t.Join(); //Main 스레드가 t를 기다려 줍니다.
+            Console.WriteLine("Main 프로그램 종료");
+        }
+        static void threadFunc()
+        {
+            Console.WriteLine("7초 후에 프로그램 종료");
+            Thread.Sleep(7000);
+
+            Console.WriteLine("threadFunc 프로그램 종료");
+        }
+    }
+}
+---------------------------------------------------------------
+namespace ConsoleApp92
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Thread t = new Thread(threadFunc);
+            t.IsBackground = true; //Main 종료시 바로 종료됨
+
+            t.Start();
+
+            t.Join(); //Main 스레드가 t를 기다려 줍니다.
+
+            Thread.CurrentThread.Name = "사장님";
+            string mtName = Thread.CurrentThread.Name;
+            Console.WriteLine($"{mtName} 프로그램 종료");
+        }
+        static void threadFunc()
+        {
+            Console.WriteLine("7초 후에 프로그램 종료");
+            Thread.Sleep(7000);
+
+            Thread.CurrentThread.Name = "개발부장";
+            string mtName = Thread.CurrentThread.Name;
+            Console.WriteLine($"{mtName} 프로그램 종료");
+        }
+    }
+}
+------------------------------------------
+namespace DiditalWatch01
+{
+    public partial class Form1 : Form
+    {
+        private Thread thread1;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                //DateTime currentTime = DateTime.Now;
+                //label1.Text = currentTime.ToString("hh : mm : ss");
+                //Thread.Sleep(1000);
+                thread1 = new Thread(UpdateTime);
+                thread1.IsBackground = true;
+                thread1.Start();
+            }
+        }
+        private void UpdateTime()
+        {
+            while(true)
+            {
+                DateTime currentTime = DateTime.Now;
+                string strTime = currentTime.ToString("hh : mm : ss");
+
+                this.Invoke((MethodInvoker)delegate
+                {
+                    label1.Text = strTime;
+                });
+                //Invoke((Action)(() => label1.Text = strTime));
+                Thread.Sleep(1000);
+            }
+        }
+    }
+}
+---------------------------------------------------
+namespace WinFormsApp11
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label1.Text = DateTime.Now.ToString("hh : mm : ss");
+        }
+    }
+}
+----------------------------------------------------------
+using System.IO;
+namespace FileExam08
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Thread WriteThread = new Thread(DataWrite);
+            Thread ReadThread = new Thread(DataRead);
+            WriteThread.Start();
+            WriteThread.Join();
+            ReadThread.Start();
+            ReadThread.Join();
+        }
+        static void DataWrite()
+        {
+            string path = @"C:\Temp\data.txt";
+            string content = "파일처리/스레드 프로그래밍은 재미있다.";
+            File.WriteAllText(path, content);
+        }
+        static void DataRead()
+        {
+            string str = File.ReadAllText(@"C:\Temp\data.txt");
+            Console.WriteLine(str);
+        }
+    }
+}
