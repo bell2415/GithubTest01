@@ -1,0 +1,497 @@
+using System.Windows.Forms;
+
+namespace JackUp3
+{
+    public partial class Form1 : Form
+    {
+        private int workIndex = 0;
+        private int progressValue1;
+        private int progressValue2;
+        private int progressValue3;
+        private int progressValue4;
+        private int progressValue5;
+        private int progressValue6;
+
+        void Continue()
+        {
+            timer1.Start();
+        }
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/1.gif");
+            pictureBox2.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/1.png");
+            pictureBox3.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T1_3.png");
+            pictureBox4.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T1_2.gif");
+            pictureBox5.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T1_1.png");
+            pictureBox6.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T2_1.png");
+            pictureBox7.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T2_2.gif");
+            pictureBox8.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T2_3.png");
+            pictureBox9.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/2.png");
+            pictureBox10.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/2.gif");
+            pictureBox11.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T3_1.png");
+            pictureBox12.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T3_2.gif");
+            pictureBox13.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T3_3.png");
+            pictureBox14.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/3.png");
+            pictureBox15.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/3.gif");
+            pictureBox16.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T4_1.png");
+            pictureBox17.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T4_2.gif");
+            pictureBox18.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T4_3.png");
+            pictureBox19.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/4.png");
+            pictureBox20.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/4.gif");
+            pictureBox21.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T5_1.png");
+            pictureBox22.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T5_2.gif");
+            pictureBox23.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T5_3.png");
+            pictureBox24.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/5.png");
+            pictureBox25.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/5.gif");
+            pictureBox26.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T6_1.png");
+            pictureBox27.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T6_2.gif");
+            pictureBox28.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T6_3.png");
+            pictureBox29.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/6.png");
+            pictureBox30.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/6.gif");
+            pictureBox31.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/right.png");
+            pictureBox32.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/right.png");
+            pictureBox33.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/right.png");
+            pictureBox34.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/right.png");
+            pictureBox35.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/right.png");
+            pictureBox36.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T3_6.gif");
+            pictureBox36.Visible = false;
+            pictureBox37.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/Line.png");
+            pictureBox38.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/Line.png");
+            pictureBox39.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/Line.png");
+            pictureBox40.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/Line.png");
+            pictureBox41.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/Line.png");
+            pictureBox42.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/RedBox.jpg");
+            pictureBox42.Visible = false;
+            pictureBox43.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T1_4.gif");
+            pictureBox44.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T2_4.gif");
+            pictureBox45.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T3_4.gif");
+            pictureBox46.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T4_4.gif");
+            pictureBox47.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T5_4.gif");
+            pictureBox48.Image = Image.FromFile(System.Environment.CurrentDirectory + "/picture/T6_4.gif");
+            pictureBox43.Visible = false;
+            pictureBox44.Visible = false;
+            pictureBox45.Visible = false;
+            pictureBox46.Visible = false;
+            pictureBox47.Visible = false;
+            pictureBox48.Visible = false;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            pictureBox1.Visible = true;
+            pictureBox2.Visible = false;
+            pictureBox3.Visible = false;
+            pictureBox4.Visible = true;
+            pictureBox5.Visible = false;
+
+            progressValue1 += 1;
+            if (progressValue1 <= 100)
+            {
+                progressBar1.Value = progressValue1;
+            }
+            else
+            {
+                timer1.Stop();
+                pictureBox1.Visible = false;
+                pictureBox2.Visible = true;
+                pictureBox3.Visible = true;
+                pictureBox4.Visible = false;
+                pictureBox5.Visible = false;
+                timer2.Start();
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            pictureBox6.Visible = false;
+            pictureBox7.Visible = true;
+            pictureBox8.Visible = false;
+            pictureBox9.Visible = false;
+            pictureBox10.Visible = true;
+
+            progressValue2 += 1;
+            if (progressValue2 <= 100)
+            {
+                progressBar2.Value = progressValue2;
+            }
+            else
+            {
+                timer2.Stop();
+                pictureBox6.Visible = false;
+                pictureBox7.Visible = false;
+                pictureBox8.Visible = true;
+                pictureBox9.Visible = true;
+                pictureBox10.Visible = false;
+                timer3.Start();
+            }
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            pictureBox11.Visible = false;
+            pictureBox12.Visible = true;
+            pictureBox13.Visible = false;
+            pictureBox14.Visible = false;
+            pictureBox15.Visible = true;
+
+            progressValue3 += 1;
+            if (progressValue3 <= 100)
+            {
+                progressBar3.Value = progressValue3;
+            }
+            else if (workIndex == 3)
+            {
+                timer3.Stop();
+                pictureBox36.Visible = true;
+                pictureBox11.Visible = false;
+                pictureBox12.Visible = false;
+                pictureBox13.Visible = false;
+                pictureBox14.Visible = true;
+                pictureBox15.Visible = false;
+                pictureBox42.Visible = true;
+
+                DialogResult result = MessageBox.Show("하소 과정 중 에러발생 \n하소 과정을 다시 진행하시겠습니까?", "Danger", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+
+                if (result == DialogResult.Yes)
+                {
+                    progressBar3.Value = 0;
+                    progressValue3 = 0;
+                    pictureBox36.Visible = false;
+                    pictureBox12.Visible = true;
+                    pictureBox42.Visible = false;
+                    workIndex = 0;
+
+                    Continue();
+                }
+                else if (result == DialogResult.No)
+                {
+
+                }
+            }
+
+            else
+            {
+                timer3.Stop();
+                pictureBox11.Visible = false;
+                pictureBox12.Visible = false;
+                pictureBox13.Visible = true;
+                pictureBox14.Visible = true;
+                pictureBox15.Visible = false;
+                timer4.Start();
+            }
+        }
+
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            pictureBox16.Visible = false;
+            pictureBox17.Visible = true;
+            pictureBox18.Visible = false;
+            pictureBox19.Visible = false;
+            pictureBox20.Visible = true;
+
+            progressValue4 += 1;
+            if (progressValue4 <= 100)
+            {
+                progressBar4.Value = progressValue4;
+            }
+            else
+            {
+                timer4.Stop();
+                pictureBox16.Visible = false;
+                pictureBox17.Visible = false;
+                pictureBox18.Visible = true;
+                pictureBox19.Visible = true;
+                pictureBox20.Visible = false;
+                timer5.Start();
+            }
+        }
+
+        private void timer5_Tick(object sender, EventArgs e)
+        {
+            pictureBox21.Visible = false;
+            pictureBox22.Visible = true;
+            pictureBox23.Visible = false;
+            pictureBox24.Visible = false;
+            pictureBox25.Visible = true;
+
+            progressValue5 += 1;
+            if (progressValue5 <= 100)
+            {
+                progressBar5.Value = progressValue5;
+            }
+            else
+            {
+                timer5.Stop();
+                pictureBox21.Visible = false;
+                pictureBox22.Visible = false;
+                pictureBox23.Visible = true;
+                pictureBox24.Visible = true;
+                pictureBox25.Visible = false;
+                timer6.Start();
+            }
+        }
+
+        private void timer6_Tick(object sender, EventArgs e)
+        {
+            pictureBox26.Visible = false;
+            pictureBox27.Visible = true;
+            pictureBox28.Visible = false;
+            pictureBox29.Visible = false;
+            pictureBox30.Visible = true;
+
+            progressValue6 += 1;
+            if (progressValue6 <= 100)
+            {
+                progressBar6.Value = progressValue6;
+            }
+            else
+            {
+                timer6.Stop();
+                pictureBox26.Visible = false;
+                pictureBox27.Visible = false;
+                pictureBox28.Visible = true;
+                pictureBox29.Visible = true;
+                pictureBox30.Visible = false;
+                MessageBox.Show("공정 완료", "success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                
+                timer1.Stop();
+                timer2.Stop();
+                timer3.Stop();
+                timer4.Stop();
+                timer5.Stop();
+                timer6.Stop();
+
+                pictureBox1.Visible = false;
+                pictureBox2.Visible = true;
+                pictureBox3.Visible = false;
+                pictureBox4.Visible = false;
+                pictureBox5.Visible = true;
+                pictureBox6.Visible = true;
+                pictureBox7.Visible = false;
+                pictureBox8.Visible = false;
+                pictureBox9.Visible = true;
+                pictureBox10.Visible = false;
+                pictureBox11.Visible = true;
+                pictureBox12.Visible = false;
+                pictureBox13.Visible = false;
+                pictureBox14.Visible = true;
+                pictureBox15.Visible = false;
+                pictureBox16.Visible = true;
+                pictureBox17.Visible = false;
+                pictureBox18.Visible = false;
+                pictureBox19.Visible = true;
+                pictureBox20.Visible = false;
+                pictureBox21.Visible = true;
+                pictureBox22.Visible = false;
+                pictureBox23.Visible = false;
+                pictureBox24.Visible = true;
+                pictureBox25.Visible = false;
+                pictureBox26.Visible = true;
+                pictureBox27.Visible = false;
+                pictureBox28.Visible = false;
+                pictureBox29.Visible = true;
+                pictureBox30.Visible = false;
+                pictureBox36.Visible = false;
+                pictureBox42.Visible = false;
+
+                progressBar1.Value = 0;
+                progressBar2.Value = 0;
+                progressBar3.Value = 0;
+                progressBar4.Value = 0;
+                progressBar5.Value = 0;
+                progressBar6.Value = 0;
+
+                progressValue1 = 0;
+                progressValue2 = 0;
+                progressValue3 = 0;
+                progressValue4 = 0;
+                progressValue5 = 0;
+                progressValue6 = 0;
+
+                workIndex = 0;
+            }
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            timer2.Stop();
+            timer3.Stop();
+            timer4.Stop();
+            timer5.Stop();
+            timer6.Stop();
+
+            if (progressValue1 > 0 && progressValue1 < 100)
+            {
+                pictureBox43.Visible = true;
+                DialogResult result = MessageBox.Show("계속 진행하시겠습니까?", "평량과정 정지", MessageBoxButtons.YesNo,MessageBoxIcon.Asterisk);
+
+                if (result == DialogResult.Yes)
+                {
+                    pictureBox43.Visible = false;
+                    Continue();
+                }
+                else if (result == DialogResult.No)
+                {
+
+                }
+            }
+
+            else if (progressValue2 > 0 && progressValue2 < 100)
+            {
+                pictureBox44.Visible = true;
+                DialogResult result = MessageBox.Show("계속 진행하시겠습니까?", "혼합과정 정지", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+
+                if (result == DialogResult.Yes)
+                {
+                    pictureBox44.Visible = false;
+                    Continue();
+                }
+                else if (result == DialogResult.No)
+                {
+
+                }
+            }
+
+            else if (progressValue3 > 0 && progressValue3 < 100)
+            {
+                pictureBox45.Visible = true;
+                DialogResult result = MessageBox.Show("계속 진행하시겠습니까?", "하소과정 정지", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+
+                if (result == DialogResult.Yes)
+                {
+                    pictureBox44.Visible = false;
+                    Continue();
+                }
+                else if (result == DialogResult.No)
+                {
+
+                }
+            }
+
+            else if (progressValue4 > 0 && progressValue4 < 100)
+            {
+                pictureBox46.Visible = true;
+                DialogResult result = MessageBox.Show("계속 진행하시겠습니까?", "분쇄과정 정지", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+
+                if (result == DialogResult.Yes)
+                {
+                    pictureBox46.Visible = false;
+                    Continue();
+                }
+                else if (result == DialogResult.No)
+                {
+
+                }
+            }
+
+            else if (progressValue5 > 0 && progressValue5 < 100)
+            {
+                pictureBox47.Visible = true;
+                DialogResult result = MessageBox.Show("계속 진행하시겠습니까?", "분급과정 정지", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+
+                if (result == DialogResult.Yes)
+                {
+                    pictureBox47.Visible = false;
+                    Continue();
+                }
+                else if (result == DialogResult.No)
+                {
+
+                }
+            }
+
+            else if (progressValue6 > 0 && progressValue6 < 100)
+            {
+                pictureBox48.Visible = true;
+                DialogResult result = MessageBox.Show("계속 진행하시겠습니까?", "포장과정 정지", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+
+                if (result == DialogResult.Yes)
+                {
+                    pictureBox48.Visible = false;
+                    Continue();
+                }
+                else if (result == DialogResult.No)
+                {
+
+                }
+            }
+
+        }
+
+        private void btnError_Click(object sender, EventArgs e)
+        {
+            workIndex = 3;
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            timer2.Stop();
+            timer3.Stop();
+            timer4.Stop();
+            timer5.Stop();
+            timer6.Stop();
+
+            pictureBox1.Visible = false;
+            pictureBox2.Visible = true;
+            pictureBox3.Visible = false;
+            pictureBox4.Visible = false;
+            pictureBox5.Visible = true;
+            pictureBox6.Visible = true;
+            pictureBox7.Visible = false;
+            pictureBox8.Visible = false;
+            pictureBox9.Visible = true;
+            pictureBox10.Visible = false;
+            pictureBox11.Visible = true;
+            pictureBox12.Visible = false;
+            pictureBox13.Visible = false;
+            pictureBox14.Visible = true;
+            pictureBox15.Visible = false;
+            pictureBox16.Visible = true;
+            pictureBox17.Visible = false;
+            pictureBox18.Visible = false;
+            pictureBox19.Visible = true;
+            pictureBox20.Visible = false;
+            pictureBox21.Visible = true;
+            pictureBox22.Visible = false;
+            pictureBox23.Visible = false;
+            pictureBox24.Visible = true;
+            pictureBox25.Visible = false;
+            pictureBox26.Visible = true;
+            pictureBox27.Visible = false;
+            pictureBox28.Visible = false;
+            pictureBox29.Visible = true;
+            pictureBox30.Visible = false;
+            pictureBox36.Visible = false;
+            pictureBox42.Visible = false;
+
+            progressBar1.Value = 0;
+            progressBar2.Value = 0;
+            progressBar3.Value = 0;
+            progressBar4.Value = 0;
+            progressBar5.Value = 0;
+            progressBar6.Value = 0;
+
+            progressValue1 = 0;
+            progressValue2 = 0;
+            progressValue3 = 0;
+            progressValue4 = 0;
+            progressValue5 = 0;
+            progressValue6 = 0;
+
+            workIndex = 0;
+            MessageBox.Show("리셋 완료", "Reset", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
+    }
+}
