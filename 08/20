@@ -1,1 +1,211 @@
-ㄴ
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // 서버 소켓 생성
+        TcpListener server = null;
+        try
+        {
+            int port = 13000;
+            IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+
+            // 서버 소켓 초기화
+            server = new TcpListener(localAddr, port);
+
+            // 서버 시작
+            server.Start();
+            Console.WriteLine("서버가 시작되었습니다. 클라이언트를 기다리는 중...");
+
+            // 클라이언트의 연결을 기다림
+            using (TcpClient client = server.AcceptTcpClient())
+            {
+                Console.WriteLine("클라이언트가 연결되었습니다.");
+
+                // 네트워크 스트림을 통해 데이터를 주고받음
+                using (NetworkStream stream = client.GetStream())
+                {
+                    // 클라이언트로부터 데이터를 읽음
+                    byte[] buffer = new byte[256];
+                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                    string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Console.WriteLine("클라이언트로부터 받은 메시지: " + receivedMessage);
+
+                    // 클라이언트에게 메시지 전송
+                    string responseMessage = "메시지를 받았습니다.";
+                    byte[] responseData = Encoding.UTF8.GetBytes(responseMessage);
+                    stream.Write(responseData, 0, responseData.Length);
+                    Console.WriteLine("클라이언트에게 응답을 전송했습니다.");
+                }
+            }
+        }
+        catch (SocketException e)
+        {
+            Console.WriteLine("소켓 예외: " + e.ToString());
+        }
+        finally
+        {
+            // 서버 소켓을 종료
+            if (server != null)
+            {
+                server.Stop();
+            }
+        }
+
+        Console.WriteLine("서버를 종료합니다.");
+    }
+}
+------------------------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleTCPClient
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string server = "127.0.0.1";
+            int port = 13000;
+
+            TcpClient client = new TcpClient(server, port);
+
+            NetworkStream stream = client.GetStream();
+
+            //보내고
+            string greet = "안녕하세요!!!";
+            byte[] message = new byte[256];
+            message = Encoding.UTF8.GetBytes(greet);
+            stream.Write(message, 0, message.Length);
+            Console.WriteLine($"보낸 메세지 : {greet}");
+
+            //받기
+            byte[] data = new byte[256];
+            int bytes = stream.Read(data, 0, data.Length);
+            string responseData = Encoding.UTF8.GetString(data, 0, bytes);
+            Console.WriteLine($"Received: {responseData}");
+
+            client.Close();
+        }
+    }
+}
+----------------------------------------------------
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+
+class QuizServer
+{
+    static void Main(string[] args)
+    {
+        // 퀴즈 데이터
+        string[,] quizzes = {
+            { "C#의 창시자는?", "1. Anders Hejlsberg", "2. James Gosling", "3. Bjarne Stroustrup", "1" },
+            { "HTTP의 기본 포트 번호는?", "1. 21", "2. 80", "3. 443", "2" },
+            { "OOP에서 상속을 제공하는 키워드는?", "1. class", "2. interface", "3. extends", "3" }
+        };
+
+        // 서버 설정
+        TcpListener server = new TcpListener(IPAddress.Any, 9999);
+        server.Start();
+        Console.WriteLine("퀴즈 서버가 시작되었습니다...");
+
+        while (true)
+        {
+            TcpClient client = server.AcceptTcpClient();
+            Console.WriteLine("클라이언트 연결됨...");
+            NetworkStream stream = client.GetStream();
+
+            for (int i = 0; i < quizzes.GetLength(0); i++)
+            {
+                string question = quizzes[i, 0];
+                string options = string.Join("\n", quizzes[i, 1], quizzes[i, 2], quizzes[i, 3]);
+                string correctAnswer = quizzes[i, 4];
+
+                string message = $"{question}\n{options}\n정답을 입력하세요 (1, 2, 3): ";
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                stream.Write(data, 0, data.Length);
+
+                // 클라이언트의 답을 받음
+                byte[] buffer = new byte[256];
+                int bytes = stream.Read(buffer, 0, buffer.Length);
+                string answer = Encoding.UTF8.GetString(buffer, 0, bytes).Trim();
+
+                if (answer == correctAnswer)
+                {
+                    data = Encoding.UTF8.GetBytes("정답입니다!\n");
+                    stream.Write(data, 0, data.Length);
+                }
+                else
+                {
+                    data = Encoding.UTF8.GetBytes("오답입니다. 다음 기회에 도전하세요.\n");
+                    stream.Write(data, 0, data.Length);
+                    break;
+                }
+            }
+
+            // 마지막 메시지 전송
+            byte[] finalMessage = Encoding.UTF8.GetBytes("축하합니다! 모든 문제를 맞추셨습니다. 우승하셨습니다!\n");
+            stream.Write(finalMessage, 0, finalMessage.Length);
+
+            client.Close();
+        }
+    }
+}
+
+---------------------------------------------------------------------------------------
+using System;
+using System.Net.Sockets;
+using System.Text;
+
+class QuizClient
+{
+    static void Main(string[] args)
+    {
+        try
+        {
+            TcpClient client = new TcpClient("localhost", 9999);
+            NetworkStream stream = client.GetStream();
+
+            while (true)
+            {
+                // 서버로부터 퀴즈 문제를 받음
+                byte[] buffer = new byte[256];
+                int bytes = stream.Read(buffer, 0, buffer.Length);
+                string quizData = Encoding.UTF8.GetString(buffer, 0, bytes);
+
+                Console.WriteLine(quizData);
+
+                // 사용자의 답을 입력받아 서버로 전송
+                string answer = Console.ReadLine().Trim();
+                byte[] data = Encoding.UTF8.GetBytes(answer);
+                stream.Write(data, 0, data.Length);
+
+                // 서버로부터 정답 확인 메시지를 받음
+                bytes = stream.Read(buffer, 0, buffer.Length);
+                string result = Encoding.UTF8.GetString(buffer, 0, bytes);
+                Console.WriteLine(result);
+
+                if (result.Contains("오답") || result.Contains("우승"))
+                {
+                    break;
+                }
+            }
+
+            client.Close();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("오류: " + e.Message);
+        }
+    }
+}
