@@ -1,1 +1,335 @@
-lk
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML 태그의 속성</title>
+</head>
+<body>
+    <a href="https://www.naver.com/" target="_blank">네이버 사이트로 이동</a><br>
+    <a href="https://www.daum.com/" target="_blank">다음 사이트로 이동</a><br>
+    <a href="https://www.nate.com/" target="_blank">네이트 사이트로 이동</a><br>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    안녕하세요<br>
+    반갑습니다<br>
+    열심히 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTML을 공부해 보아요!!!;
+
+    &lt;HTML5&gt;<br>
+    A &amp; B
+    &copy;저작권
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>정의 목록</title>
+</head>
+<body>
+    <h3>계절별 야생화</h3>
+    <dl>
+        <dt>봄꽃</dt>
+        <dd>봄에 꽃이 피는 다년생 식물은 꽃잔디</dd>
+    <dl>
+        <dt>여름꽃</dt>
+        <dd>여름에 꽃이 피는 식물은 옥잠화, 비비추, 맥문동, 예란, 수국, 인동초 등</dd>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>나의 첫 웹페이지</title>
+</head>
+<body>
+    <h1>Hello World~!</h1>
+    <p></p>
+    <h2>안녕하세요!</h2>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목연습(h1 ~ h6)</title>
+</head>
+<body>
+    <h1>글자제목(h1)</h1>
+    <h2>글자제목(h2)</h2>
+    <h3>글자제목(h3)</h3>
+    <h4>글자제목(h4)</h4>
+    <h5>글자제목(h5)</h5>
+    <h6>글자제목(h6)</h6>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+    <img src="https://news.nateimg.co.kr/etc/cms/2024/08/22/1724288700_926.jpg">
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<body>
+    <a href="dtdd.html" target="_blank">dd페이지</a> <p></p>
+
+    <a href="./temp1/first.html" target="_blank">첫 웹페이지</a> <p></p>
+
+    <a href="sample.html" target="_blank">smaple 페이지</a> <p></p>
+
+    <img src="./img/1.jpg"> <p></p>
+
+    <img src =".img/1.jpg" width="200" height="400"> <p></p>
+    
+    <!--주석입니다.-->
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h3>튤립</h3>
+    <p><b>튤립</b>은 여러 종류의 ~~~</p>
+    햇볕이 잘 들고 배수가 잘 되는 토양
+    <p>심것 것이<p/>적합하여 <i>화분은</i>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>제목입니다.</title>
+    </head>
+    
+    <body>
+        내용입니다.
+    </body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sample HTML</title>
+</head>
+<body>
+    <h3>HTML 연습</h3>
+    <p>
+        여기에 쓰고 싶은 메시지를 연습 삼아 적어보세요!!!!
+    </p>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>식물원 관람 유의사항</title>
+</head>
+<body>
+    <h3>식물원 관람 유의사항</h3>
+    <ul>
+        <li>입장권에 게시된 관람요령을 살펴보세요.</li>
+        <li>안내원의 안내를 따르세요.</li>
+        <li>관람 지역 이오의 출입제한 합니다.</li>
+        <li>식물이 삭재된 곳에 들어가지 마세요.</li>
+    </ul>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>비디오제어</title>
+</head>
+<body>
+    <video width="600" height="1500" controls autoplay>
+        <source src="./img/m1.mp4" type="video/mp4">
+        <source src="./img/m1.mp4" type="webm">
+        <source src="./img/m1.mp4" type="video/ogg">
+    </video>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+    <FORM>
+        이름 : <INPUT TYPE = "text"><br>
+        나이 : <INPUT TYPE = "text"> <p>
+            
+        비밀번호 : <INPUT TYPE="password"><br><br>
+        개인 정보 : <INPUT TYPE="radio" NAME="info" checked>공개
+                <INPUT TYPE="radio" NAME="info" >비공개
+                    <p></p>
+        이메일 : <INPUt TYPE="text">@
+            <SELECT>
+                <OPTION>선택</OPTION>
+                <OPTION>naver.com</OPTION>
+                <OPTION>gmail.com</OPTION>
+                <OPTION>daum.net</OPTION>
+                <OPTION>직접입력</OPTION>
+            </SELECT>
+            <p></p>
+            자기소개 : <textarea rows="10" cols="60"></textarea><br>
+
+            <button type="button">검색</button>
+            <button type="button">확인</button>
+            <button type="button">다시쓰기</button>
+
+
+    </FORM>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form>
+        파일 첨부 : <input type="file"> 파일 첨부 <p></p>
+
+        Color : <input type="color"><br>
+        DateTime-Local : <input type="datetime-local"><br>
+        <p></p>
+        Month :<input type="month">
+        <p></p>
+        Number : <input type="number">
+        <p></p>
+        Range : <input type="range">
+        <p></p>
+        Time : <input type="time">
+        <p></p>
+        Week : <input type="week">
+        <p></p>
+
+    </form>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            table, th, tr, td{
+                border:solid 1px blue;
+                border-collapse: collapse;
+                padding: 8px;
+                margin: 30px;
+            }
+        </style>
+    </head>
+<body>
+    <table border="1">
+        <tr>
+            <td>지역</td>
+            <td>현재기온</td>
+            <td colspan="2">불쾌지수/습도(%)</td>
+            <td>풍속</td>
+        </tr>
+        <tr>
+            <td rowspan="2">서울/경기</td>
+            <td>23</td>
+            <th>60</th>
+            <td>80</td>
+            <td>4.7</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>60</td>
+            <td>80</td>
+            <td>5.0</td>
+        </tr>
+        <tr>
+            <td>제주도</td>
+            <td>21</td>
+            <td>65</td>
+            <td>85</td>
+            <td>3.6</td>
+        </tr>
+    </table>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<body>
+    
+    <table border="1">
+        <tr>
+            <td>번호</td>
+            <td>이름</td>
+            <th>전화번호</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>홍길동</td>
+            <th>010-1111-1111</th>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>이순신</td>
+            <th>010-2222-2222</th>
+        </tr>
+    </table>
+</body>
+</html>
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+    <title>표그리기</title>
+    <style>
+        table, th, tr, td{
+            border:solid 1px black;
+            border-collapse: collapse;
+            padding: 8px;
+            margin: 30px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>번호</td>
+            <td>이름</td>
+            <th>전화번호</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>홍길동</td>
+            <th>010-1111-1111</th>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>이순신</td>
+            <th>010-2222-2222</th>
+        </tr>
+    </table>
+</body>
+</html>
