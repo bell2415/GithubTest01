@@ -1,1 +1,55 @@
-fds
+<!DOCTYPE html>
+<html>
+<head>
+    <title>표그리기</title>
+    <style>
+        table, th, tr, td{
+            border:solid 1px black;
+            border-collapse: collapse;
+            padding: 8px;
+            margin: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h3>KTX 기차표 예매</h3>
+    <table>
+        <tr>
+            <td>열차번호</td>
+            <td>출발</td>
+            <td>도착</td>
+            <td>출발시간</td>
+            <td>특실</td>
+            <td>일반실</td>
+            <td>소요시간</td>
+        </tr>
+        <tr>
+            <td>173</td>
+            <td>서울</td>
+            <td>부산</td>
+            <td>21:00</td>
+            <td><img src="img/full.png"></td>
+            <td><img src="img/full.png"></td>
+            <td>2:44</td>
+        </tr>
+        <tr>
+            <td>177</td>
+            <td>서울</td>
+            <td>부산</td>
+            <td>21:30</td>
+            <td><img src="img/empty.png"></td>
+            <td><img src="img/empty.png"></td>
+            <td>2:38</td>
+        </tr>
+        <tr>
+            <td>179</td>
+            <td>서울</td>
+            <td>부산</td>
+            <td>22:00</td>
+            <td><img src="img/empty.png"></td>
+            <td><img src="img/empty.png"></td>
+            <td>2:42</td>
+        </tr>
+    </table>
+</body>
+</html>
