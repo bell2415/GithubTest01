@@ -1,1 +1,21 @@
-sadd
+saddusing System.Runtime.InteropServices;
+using System.Text.Unicode;
+
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+//app.MapGet("/", () => "Hello World!");
+
+app.Use(async (context, next) =>
+{
+    context.Response.ContentType = "text/html; charset=utf-8";
+    await context.Response.WriteAsync("<b>Main</b> 페이지 입니다.");
+    await context.Response.WriteAsync("<br>내용 입니다.");
+    await next();
+});
+
+app.Run(async (context) =>
+{
+    await context.Response.WriteAsync("<p>ASP.Net Core 공부해 봅시다~~~!!!!");
+});
+app.Run();
