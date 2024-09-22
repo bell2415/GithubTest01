@@ -1,0 +1,125 @@
+디지털 LED 버튼
+
+void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);  
+  delay(1000);                      
+  digitalWrite(LED_BUILTIN, LOW);   
+  delay(1000);                      
+}
+void setup() {
+  pinMode(2, OUTPUT);
+}
+void loop() {
+  digitalWrite(2, HIGH);
+  delay(500);
+  digitalWrite(2, LOW);
+  delay(2000);
+}
+
+------------------------------------------------
+echoRoad board v 1.0의 GPIO36 핀에 PIR 센서 부착
+
+#define PIR     36
+void setup() {
+  Serial.begin(115200);
+  pinMode(PIR, INPUT);
+}
+void loop() {
+  Serial.println(digitalRead(PIR) ? "Motion detected!" : "No Motion!");
+  delay(500);
+}
+------------------------------------------------
+UART1 – PMS7003미세먼지 센서
+#include "PMS.h"
+PMS pms(Serial1);
+PMS::DATA data;
+void setup()
+{
+  Serial.begin(9600);  
+  Serial1.begin(9600, SERIAL_8N1, 25, 26); 
+}
+void loop() {
+  if (pms.read(data)) {
+    Serial.print("PM 1.0 (ug/m3): ");
+    Serial.println(data.PM_AE_UG_1_0);
+    Serial.print("PM 2.5 (ug/m3): ");
+    Serial.println(data.PM_AE_UG_2_5);
+    Serial.print("PM 10.0 (ug/m3): ");
+    Serial.println(data.PM_AE_UG_10_0);
+    Serial.println();
+  }
+}
+------------------------------------------------
+미세먼지센서(PMS7003)
+#include "PMS.h"
+PMS pms(Serial2);
+PMS::DATA data;
+void setup() {
+  Serial.begin(9600);
+  Serial2.begin(9600, SERIAL_8N1, 16, 17);
+}
+void loop() {
+  if ( pms.read(data) ) {
+    Serial.print("PM 2.5[ug/m3] : "); Serial.println(data.PM_AE_UG_2_5);
+  }
+}
+// PMS7003_read.ino
+#include "PMS.h"
+PMS pms(Serial1);
+PMS::DATA data;
+void setup() {
+  Serial.begin(115200);
+  Serial1.begin(9600, SERIAL_8N1, 25, 26);
+}
+void loop() {
+  if (pms.read(data)) {
+    Serial.print("PM 1.0 (ug/m3): ");   Serial.println(data.PM_AE_UG_1_0);
+    Serial.print("PM 2.5 (ug/m3): ");   Serial.println(data.PM_AE_UG_2_5);
+    Serial.print("PM 10.0 (ug/m3): ");  Serial.println(data.PM_AE_UG_10_0);
+    Serial.println();
+  }
+}
+------------------------------------------------
+Analog Input (ADC) 
+void setup() {
+   Serial.begin(115200);
+}
+void loop() {
+   Serial.println( analogRead(A4) );
+   delay(500);
+}
+------------------------------------------------
+Analog Input (ADC) 
+void setup() {
+   Serial.begin(115200);
+}
+void loop() {
+   Serial.println( analogRead(A4) );
+   Serial.println( analogReadMilliVolts(A4) );
+   delay(500);
+}
+------------------------------------------------
+Analog Input (ADC) 
+void setup() {
+   Serial.begin(115200);
+   analogReadResolution(10);
+}
+void loop() {
+   Serial.println( analogRead(A4) );
+   Serial.println( analogReadMilliVolts(A4) );
+   delay(500);
+}
+------------------------------------------------
+DAC (Digital-to-Analog Converter)
+void setup() {
+   Serial.begin(115200);
+   unsigned long int startTime = micros();
+   dacWrite(25, 64);
+   Serial.println(micros() - startTime);
+}
+void loop() {}
+}
+
