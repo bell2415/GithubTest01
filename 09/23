@@ -1,1 +1,7 @@
-s
+만들때 mkdir
+지울떄 rmdir
+화면 지우기 clear
+리스트 ls
+리스트 세로로 ls -l
+다보여주기 ls -al
+?? cd ..
