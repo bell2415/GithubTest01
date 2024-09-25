@@ -1,3 +1,4 @@
+라즈베리에서 아두이노로 메세지받기(라즈베리에는mosquitto_pub -t MyOffice/Indoor/Temp -m 3.14 -u mqtt_boy -P 1234)
 // esp32_subscribe_DHT11.ino
 #include <WiFi.h>
 #include <PubSubClient.h>
@@ -38,3 +39,4 @@ void setup() {
 void loop() {
  client.loop();
 }
+------------------------------------------------------------------------------------
