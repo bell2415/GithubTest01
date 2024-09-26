@@ -353,6 +353,8 @@ mqttc.loop_forever( )
 다른 라즈베리파이(use dbriatech)
 다른 라즈베리파이(select * from sensors)
 
+?다른라즈베리 파이(mosquitto_sub -t MyOffice/# -u mqtt_boy -P 1234)
+
 
 
 
