@@ -1,0 +1,216 @@
+a = 1
+b = "kim"
+c = 3.14
+
+print(c)
+
+lst = [ '사과', '배', '귤', '수박']
+car_lst = ['포르쉐', '벤츠', 'BMW', '소나타']
+
+print(car_lst)
+
+lst = [ 1, 3.14, 'boy', 'girl']
+
+lst = [ 1, 2, 3.14, 'boy', [4, 5]]
+len(lst)
+
+lst[0]
+
+lst[5]
+
+lst[4][0]
+
+lst = ['a', 'b', ['boy', 'girl']]
+len(lst)
+
+lst[2][1]
+
+for x in [1,2,3,4,5]:
+  print(x)
+
+lst = [1,2,3,4,5]
+for x in lst:
+  print(x)
+
+#Dictonary(딕셔너리)
+
+# Dictonary(딕셔너리)
+d = {
+    'boy':'어린 남자 아이',
+    'girl': '어린 여자 아이'
+}
+
+len(d)
+
+d['boy']
+
+d['girl']
+
+# Dictonary(딕셔너리)
+d = {
+    'boy':['1.소년','2.(어린) 아들', '3.(특정한 일을 하는) 남자'],
+    'girl': '어린 여자 아이'
+}
+
+len(d)
+
+d['boy']
+
+d['boy'][0]
+
+person = ['kim sungil', 176, 76]
+
+person = {'name' : 'kim sungpil', 'height':176, 'weight':76}
+person['height']
+
+# Dictonary(딕셔너리)
+d = {
+    'boy':['1.소년','2.(어린) 아들', '3.(특정한 일을 하는) 남자'],
+    'girl': '어린 여자 아이',
+    'computer' : {'cpu':'중앙처리장치', 'memory': '보조기억장치'}
+}
+data_point = {
+    'measurement': 'Sensors',
+    'tag' : {'Location':'', 'SubLocation':''},
+    'filed': {'Temp':0.0, 'Humi':0.0}
+}
+
+dic = data_point['tag']
+dic['Location']='MyOffice'
+data_point
+
+data_point.keys()
+
+x = data_point['tag']
+x['Location']='MyOffice'
+data_point
+
+data_point['tag']['Location'] = 'YourOffice'
+data_point
+
+data_point['tag']['Location'] = 'MyOffice'
+data_point
+
+data_point['tag']['Location'] = 'SubLocation'
+data_point
+
+data_point['tag']['Location'] = 'MyOffice'
+data_point
+
+data_point['tag']['SubLocation'] = 'Indoor'
+data_point
+
+data_point['filed']
+
+data_point['filed']['Temp']=23.0
+data_point['filed']['Humi']=33.9
+data_point
+
+data_point['filed']['Temp']='23.0'
+data_point['filed']['Humi']='33.9'
+data_point
+
+data_point['filed']['Temp']=float('23.0')
+data_point['filed']['Humi']=float('33.9')
+data_point
+
+---------------------------------------------
+
+#string
+
+myName = "kim sung pil"
+
+x = myName.split(' ')
+x
+
+x[0]
+
+myName.split(' ')[0]
+
+print(myName.split(' ')[0])
+print(myName.split(' ')[1])
+print(myName.split(' ')[2])
+
+# 08:20:33
+time = '08-20-33'
+time.split('-')
+
+# 08:20:33
+time = '08-20-33'
+
+
+topic = 'MyOffice/Indoor/Temp'
+topic.split('/')
+
+topic = 'MyOffice/Indoor/Temp'
+payload ='26.1'
+columns = topic.split('/')
+print(columns[0])
+print(columns[1])
+print(columns[2])
+
+data_point = {
+    'measurement': 'Sensors',
+    'tag' : {'Location':'', 'SubLocation':''},
+    'filed': {'Temp':0.0, 'Humi':0.0}
+}
+
+msg_topic = 'MyOffice/Indoor/Temp'
+msg_payload = '23.4'
+
+위 코드 셀의 내용을 활용하여 아래 이미지와 같이 data_point가 값을 갖도록 하는 코드를 작성하시오
+
+topic = 'MyOffice/Indoor/Temp'
+payload ='26.1'
+columns = topic.split('/')
+print(columns[0])
+print(columns[1])
+print(columns[2])
+data_point['tag']['Location'] = columns[0]
+data_point['tag']['SubLocation'] = columns[1]
+data_point['filed']['Temp']= msg_payload
+data_point
+
+lst = [1, 2]
+lst.append('sHIN JUNGDONG')
+
+lst = []
+lst.append('boy')
+lst.append('girl')
+lst
+
+json_body=[]
+data_point = {
+    'measurement':'sensor',
+    'tags':{'Location':'Indoor'},
+    'fields':{'Temp':0.0, 'Humi':0.0}
+}
+json_body.append(data_point)
+json_body.append(data_point)
+json_body
+---------------------------------------
+from influxdb import InfluxDBClient
+import time
+import random
+
+client = InfluxDBClient( host='localhost', port=8086,
+            username='influx_ship', password='1234',  database='db_riatech')
+
+def randomDataPoint():
+    json_body=[]
+    data_point =   {   'measurement' : 'sensors',
+                       'tags' : { 'Location' : 'Indoor'},  # 'outdoor'
+                       'fields' : {'Temp': 0.0, 'Humi' : 0.0 }
+                    }
+
+    data_point['fields']['Temp'] = random.random() * 50.0
+    data_point['fields']['Humi'] = random.random() * 30.0
+
+    if (random.random() > 0.5):
+        data_point['tags']['Location'] = 'Indoor'
+    else:
+        data_point['tags']['Location'] = 'Outdoor'
+
+    json_body.append(data_point)
+    return json_body
+
