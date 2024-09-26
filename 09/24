@@ -248,5 +248,111 @@ void loop() {
   Serial.println(String(topic_t)  + " : " + buf);
   delay(2000);
 }
+==========================================================================================
+아두이노
+// Phi_Publish_DHT11.ino
+#include <WiFi.h>
+#include <PubSubClient.h>
+
+
+// ----- DHT11 ------------------------
+#include "DHT.h"
+#define DHTPIN 4     
+#define DHTTYPE DHT11  //DHT11
+DHT dht(DHTPIN, DHTTYPE);
+// -------------------------------------
+
+const char* ssid = "pcroom";
+const char* password = "12345678";
+
+const char* clientId = "mqtt_ship";
+const char* userId = clientId;
+const char* userPw = "1234";
+char *topic_t = "MyOffice/Indoor/Temp";
+char *topic_h = "MyOffice/Indoor/Humi";
+char* server = "192.168.0.2"; 
+
+WiFiClient wifiClient; 
+PubSubClient client(server, 1883, wifiClient);
+void setup() {
+  Serial.begin(9600);
+ 
+  Serial.print("\nConnecting to ");
+  Serial.println(ssid);
+
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println("\nWiFi Connected");
+  
+  Serial.println("Connecting to broker");
+  while ( !client.connect(clientId, userId, userPw) ){ 
+    Serial.print("*");
+    delay(1000);
+  }
+  Serial.println("\nConnected to broker");
+  dht.begin();
+}
+void loop() {
+  char buf[20];
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  if (isnan(h) || isnan(t) ) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  String str = String(h);
+  str.toCharArray(buf, str.length());
+  client.publish(topic_h, buf);
+  Serial.println(String(topic_h) + " : " + buf);
+  
+  str = String(t);
+  str.toCharArray(buf, str.length());
+  client.publish(topic_t, buf);
+  Serial.println(String(topic_t)  + " : " + buf);
+  delay(2000);
+}
+-----------------------------------------------------------
+라즈베리파이(nano SubHumiTempInsert.py)
+import paho.mqtt.client as mqtt
+dbClient = InfluxDBClient(host='localhost', port=8086, username='influx_ship', password='1234',
+      database='dbriatech')
+
+def on_connect( client, userdata, flags, rc, properties ):
+   print("Connect with result code " + str(rc) )
+   client.subscribe("MyOffice/Indoor/#")
+
+def on_message( client, userdata, msg ):
+   print( msg.topic +" "+str(msg.payload) )
+   topic = msg.topic.split('/')
+   json_body = [ ]
+   data_point = {
+   'measurement': 'sensors',
+   'tags': {'Location': ' '},
+   'fields': {'Temp': 0.0, 'Humi':0.0}
+   }
+   data_point['tags']['Location'] = topic[0]
+   data_point['tags']['SubLocation'] = topic[1]
+   data_point['fields'][topic[2]] = float(msg.payload)
+   json_body.append(data_point)
+   dbClient.write_points( json_body )
+
+mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2 )
+mqttc.username_pw_set(username="mqtt_boy", password="1234")
+mqttc.on_connect = on_connect
+mqttc.on_message = on_message
+mqttc.connect("localhost", 1883, 60)
+mqttc.loop_forever( )
+---------------------------------------------------------------------
+라즈베리파이(python SubHumiTempInsert.py)
+---------------------------------------------------------------------
+다른 라즈베리파이(influx)
+다른 라즈베리파이(use dbriatech)
+다른 라즈베리파이(select * from sensors)
+
+
 
 
