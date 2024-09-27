@@ -240,4 +240,11 @@ mqttc.loop_forever( )
 -----------------------------------
 python SubHumiTempInsertMod.py
 ----------------------------------
+다른 라즈베리파이(influx)
+다른 라즈베리파이(use dbriatech)
+다른 라즈베리파이(select * from sensors)
+
+?다른라즈베리 파이(mosquitto_sub -t MyOffice/# -u mqtt_boy -P 1234)
+-----------------------------------------
+다른 라즈베리파이(drop measurement sensors)->DB에 저장된거 다 없어짐
 =========================================================================================
