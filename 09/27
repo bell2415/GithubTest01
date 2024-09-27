@@ -1,1 +1,243 @@
-s
+=============================================================================================
+아두이노
+---------------------------------------------------------------------------------------------
+// esp32_publish_DHT11.ino
+#include <WiFi.h>
+#include <PubSubClient.h>
+#define PAYLOAD_MAXSIZE 64
+// ----- DHT11 ------------------------
+#include "DHT.h"
+#define DHTPIN 4  
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+// -------------------------------------
+const char* ssid = "pcroom";
+const char* password = "12345678";
+const char* userId = "mqtt_ship";
+const char* userPw = "1234";
+const char* clientId = userId;
+char *topic = "MyOffice/Indoor/SensorValue";
+char* server = "192.168.0.2"; 
+WiFiClient wifiClient; 
+PubSubClient client(server, 1883, wifiClient);
+void setup() {
+ Serial.begin(9600);
+
+ Serial.print("\nConnecting to ");
+ Serial.println(ssid);
+ WiFi.begin(ssid, password);
+ while (WiFi.status() != WL_CONNECTED) {
+  Serial.print(".");
+  delay(1000);
+ }
+ Serial.println("\nWiFi Connected");
+ 
+ Serial.println("Connecting to broker");
+ while ( !client.connect(clientId, userId, userPw) ){ 
+  Serial.print("*");
+  delay(1000);
+ }
+ Serial.println("\nConnected to broker");
+ dht.begin();
+}
+void loop() {
+ char payload[PAYLOAD_MAXSIZE];
+ float h = dht.readHumidity();
+ float t = dht.readTemperature();
+ if (isnan(h) || isnan(t) ) {
+   Serial.println("Failed to read from DHT sensor!");
+ return;
+ }
+ String sPayload = "{'Temp':"
+       + String(t, 1)
+       + ",'Humi':"
+       + String(h, 1)
+       + "}";
+ sPayload.toCharArray(payload, PAYLOAD_MAXSIZE);
+ client.publish(topic, payload);
+ Serial.print(String(topic) + " ");
+   Serial.println(payload);
+ delay(2000);
+}
+-------------------------------------------------------------------------------------
+라즈베리파이
+nano SubHumiTempInsertMod.py
+---------------------------------
+  GNU nano 7.2                                   SubHumiTempInsertMod.py                                             
+from influxdb import InfluxDBClient
+import paho.mqtt.client as mqtt
+
+dbClient = InfluxDBClient(host='localhost', port=8086, username='influx_ship', password='1234', database='dbriatech')
+
+def on_connect( client, userdata, flags, reason_code, properties ):
+   print(f'connect with result code:{reason_code}' )
+   client.subscribe("MyOffice/Indoor/#")
+
+def on_message( client, userdata, msg ):
+   print( msg.topic +' '+str(msg.payload) )
+   topic = msg.topic.split('/')
+
+   loc = topic[0]
+   subloc = topic[1]
+   payload = eval(msg.payload)
+
+   json_body = [ ]
+   data_point = {
+      'measurement':'sensors',
+      'tags': {'Location': '', 'SubLocation':''},
+      'fields': {'Temp': 0.0, 'Humi':0.0}
+      }
+   data_point['tags']['Location'] = topic[0]
+   data_point['tags']['SubLocation'] = topic[1]
+   data_point['fields']['Temp'] = payload['Temp']
+   data_point['fields']['Humi'] = payload['Humi']
+   json_body.append(data_point)
+   dbClient.write_points( json_body )
+
+mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2 )
+mqttc.username_pw_set(username="mqtt_boy", password="1234")
+mqttc.on_connect = on_connect
+mqttc.on_message = on_message
+mqttc.connect("localhost", 1883, 60)
+mqttc.loop_forever( )
+-----------------------------------
+python SubHumiTempInsertMod.py
+----------------------------------
+====================================================================================
+조도까지 3개
+아두이노
+---------------------------------------------------------------------------------
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include <BH1750.h>
+#include <Wire.h>
+#include "DHT.h"
+
+#define PAYLOAD_MAXSIZE 64
+#define DHTPIN 4  
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);  // DHT11 센서 설정
+BH1750 lightMeter;         // BH1750 조도 센서 설정
+
+// WiFi 및 MQTT 설정
+const char* ssid = "pcroom";
+const char* password = "12345678";
+const char* userId = "mqtt_ship";
+const char* userPw = "1234";
+const char* clientId = userId;
+char *topic = "MyOffice/Indoor/SensorValue";
+char* server = "192.168.0.2"; 
+
+WiFiClient wifiClient; 
+PubSubClient client(server, 1883, wifiClient);
+
+void setup() {
+  Serial.begin(9600);
+
+  // WiFi 연결
+  Serial.print("\nConnecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(1000);
+  }
+  Serial.println("\nWiFi Connected");
+
+  // MQTT 브로커 연결
+  Serial.println("Connecting to broker");
+  while (!client.connect(clientId, userId, userPw)) { 
+    Serial.print("*");
+    delay(1000);
+  }
+  Serial.println("\nConnected to broker");
+
+  // DHT11 및 BH1750 센서 초기화
+  dht.begin();
+  Wire.begin();
+  lightMeter.begin();
+}
+
+void loop() {
+  char payload[PAYLOAD_MAXSIZE];
+  
+  // DHT11 센서에서 온도와 습도 읽기
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  
+  // BH1750 센서에서 조도 값 읽기
+  float lux = lightMeter.readLightLevel();
+
+  // 센서 값이 유효한지 확인
+  if (isnan(h) || isnan(t) || isnan(lux)) {
+    Serial.println("Failed to read from sensors!");
+    return;
+  }
+
+  // JSON 형태의 메시지 생성
+  String sPayload = "{'Temp':" 
+                    + String(t, 1) 
+                    + ",'Humi':" 
+                    + String(h, 1) 
+                    + ",'Light':" 
+                    + String(lux, 1) 
+                    + "}";
+                    
+  // String을 char 배열로 변환하여 MQTT로 퍼블리시
+  sPayload.toCharArray(payload, PAYLOAD_MAXSIZE);
+  client.publish(topic, payload);
+
+  // 시리얼 모니터에 출력
+  Serial.print(String(topic) + " ");
+  Serial.println(payload);
+
+  // 2초 대기 후 반복
+  delay(2000);
+}
+--------------------------------------------------------------------
+라즈베리파이
+nano SubHumiTempInsertMod.py
+---------------------------------
+  GNU nano 7.2                                   SubHumiTempInsertMod.py                                             
+from influxdb import InfluxDBClient
+import paho.mqtt.client as mqtt
+
+dbClient = InfluxDBClient(host='localhost', port=8086, username='influx_ship', password='1234', database='dbriatech')
+
+def on_connect( client, userdata, flags, reason_code, properties ):
+   print(f'connect with result code:{reason_code}' )
+   client.subscribe("MyOffice/Indoor/#")
+
+def on_message( client, userdata, msg ):
+   print( msg.topic +' '+str(msg.payload) )
+   topic = msg.topic.split('/')
+
+   loc = topic[0]
+   subloc = topic[1]
+   payload = eval(msg.payload)
+
+   json_body = [ ]
+   data_point = {
+      'measurement':'sensors',
+      'tags': {'Location': '', 'SubLocation':''},
+      'fields': {'Temp': 0.0, 'Humi':0.0}
+      }
+   data_point['tags']['Location'] = topic[0]
+   data_point['tags']['SubLocation'] = topic[1]
+   data_point['fields']['Temp'] = payload['Temp']
+   data_point['fields']['Humi'] = payload['Humi']
+   data_point['fields']['Light'] = payload['Light']
+   json_body.append(data_point)
+   dbClient.write_points( json_body )
+
+mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2 )
+mqttc.username_pw_set(username="mqtt_boy", password="1234")
+mqttc.on_connect = on_connect
+mqttc.on_message = on_message
+mqttc.connect("localhost", 1883, 60)
+mqttc.loop_forever( )
+-----------------------------------
+python SubHumiTempInsertMod.py
+----------------------------------
+=========================================================================================
