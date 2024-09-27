@@ -248,3 +248,5 @@ python SubHumiTempInsertMod.py
 -----------------------------------------
 다른 라즈베리파이(drop measurement sensors)->DB에 저장된거 다 없어짐
 =========================================================================================
+그래프그리기
+http://192.168.0.2:3000/d/fdz4sj33o46wwf/dashboard01?orgId=1&from=now-15m&to=now&refresh=5s
