@@ -197,7 +197,7 @@ void loop() {
 }
 --------------------------------------------------------------------
 라즈베리파이
-nano SubHumiTempInsertMod.py
+nano SubHumiTempInsertMod.py(안되면 버전차이pip install --upgrade paho-mqtt하면됨)
 ---------------------------------
   GNU nano 7.2                                   SubHumiTempInsertMod.py                                             
 from influxdb import InfluxDBClient
