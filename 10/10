@@ -1,0 +1,38 @@
+  GNU nano 7.2                                        SubHumiTempInsertMod.py                                                 
+from influxdb import InfluxDBClient
+import paho.mqtt.client as mqtt
+
+dbClient = InfluxDBClient(host='localhost', port=8086, username='influx_ship', password='1234', database='dbriatech')
+
+def on_connect( client, userdata, flags, reason_code, properties ):
+   print(f'connect with result code:{reason_code}' )
+   client.subscribe("MyOffice/Indoor/#")
+
+def on_message( client, userdata, msg ):
+   print( msg.topic +' '+str(msg.payload) )
+   topic = msg.topic.split('/')
+
+   loc = topic[0]
+   subloc = topic[1]
+   payload = eval(msg.payload)
+
+   json_body = [ ]
+   data_point = {
+      'measurement':'sensors',
+      'tags': {'Location': '', 'SubLocation':''},
+      'fields': {'Temp': 0.0, 'Humi':0.0, 'Lux':0.0}
+      }
+   data_point['tags']['Location'] = topic[0]
+   data_point['tags']['SubLocation'] = topic[1]
+   data_point['fields']['Temp'] = payload['Temp']
+   data_point['fields']['Humi'] = payload['Humi']
+   data_point['fields']['Lux'] = payload['Lux']
+   json_body.append(data_point)
+   dbClient.write_points( json_body )
+
+mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2 )
+mqttc.username_pw_set(username="mqtt_boy", password="1234")
+mqttc.on_connect = on_connect
+mqttc.on_message = on_message
+mqttc.connect("localhost", 1883, 60)
+mqttc.loop_forever( )
